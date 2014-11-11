@@ -4,11 +4,12 @@ import java.util.Vector;
 public class Peak {
 	private int nr;
 	private String name;
-	private Vector<Edge> vector = new Vector<>(); 
+	private Vector<Edge> edges;
 	
 	public Peak(int nr, String name) {
 		this.nr =nr;
 		this.name = name;
+		edges  = new Vector<>(); 
 	}
 	
 	public int getNr() {
@@ -20,7 +21,7 @@ public class Peak {
 	}
 	
 	public void addEdge(Edge e) {
-		vector.addElement(e);
+		edges.addElement(e);
 	}
 	
 	@Override
