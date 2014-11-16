@@ -1,3 +1,5 @@
+package Parts;
+
 
 public class Edge {
 	private int target;

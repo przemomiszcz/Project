@@ -1,4 +1,7 @@
+package Silngletons;
+
 import java.util.Vector;
+import Parts.*;
 
 
 public class Graph {

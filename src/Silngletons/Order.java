@@ -1,3 +1,5 @@
+package Silngletons;
+
 import java.util.Vector;
 
 

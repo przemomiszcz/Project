@@ -1,3 +1,5 @@
+package Parts;
+
 
 public class Package {
 	private int nr;
@@ -5,6 +7,7 @@ public class Package {
 	private int target;
 	private String name;
 	private int priority;
+	private boolean state;
 	
 	public Package(int nr, int base, int target, String name, int priority) {
 		nr = this.nr;
@@ -12,6 +15,7 @@ public class Package {
 		target = this.target;
 		name = this.name;
 		priority = this.priority;
+		state = false;
 	}
 	
 	public int getNr() {
@@ -32,6 +36,10 @@ public class Package {
 	
 	public int getPriority() {
 		return priority;
+	}
+	
+	public void setState() {
+		state = true;
 	}
 	
 	@Override
