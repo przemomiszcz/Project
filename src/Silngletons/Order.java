@@ -1,11 +1,11 @@
 package Silngletons;
 
 import java.util.Vector;
-
+import Parts.Package;
 
 public class Order {
 	private static Order instance = null;
-	private Vector orders = null;
+	private Vector<Package> orders = null;
 	
 	private Order() {
 		orders = new Vector<Package>();

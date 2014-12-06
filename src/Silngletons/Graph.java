@@ -32,4 +32,9 @@ public class Graph {
 	public String toString() {
 		return peaks.toString();
 	}
+	
+	public Vector<Peak> getPeaks() {
+		return peaks;
+	}
+ 	
 }

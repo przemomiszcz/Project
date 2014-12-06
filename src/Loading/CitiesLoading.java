@@ -3,6 +3,8 @@ package Loading;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import Parts.Peak;
 import Silngletons.*;
 
 
@@ -19,7 +21,7 @@ public class CitiesLoading implements Loading{
 	@Override
 	public void load() {
 		try {
-			fr = new FileReader("cities.txt");
+			fr = new FileReader("Files/Cities.txt");
 			bfr = new BufferedReader(fr);
 		} catch(IOException e) {
 			System.out.println("Bledny plik you pice'a'shit!");
