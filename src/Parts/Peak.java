@@ -28,6 +28,16 @@ public class Peak {
 	
 	@Override
 	public String toString() {
-		return "nr miasta :" + nr + " nazwa miasta " + name;
+		return "nr miasta :" + nr + " nazwa miasta " + name + edges;
 	}
+	
+	public Edge getEdge(int index) {
+		return edges.elementAt(index);
+	}
+	
+	public int getLength() {
+		return edges.size();
+	}
+	
+	
 }

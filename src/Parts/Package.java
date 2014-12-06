@@ -10,11 +10,11 @@ public class Package {
 	private boolean state;
 	
 	public Package(int nr, int base, int target, String name, int priority) {
-		nr = this.nr;
-		base = this.base;
-		target = this.target;
-		name = this.name;
-		priority = this.priority;
+		this.nr = nr;
+		this.base = base;
+		this.target = target;
+		this.name = name;
+		this.priority = priority;
 		state = false;
 	}
 	

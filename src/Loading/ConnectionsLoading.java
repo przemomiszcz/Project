@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import Silngletons.*;
-
+import Parts.Edge;
 
 public class ConnectionsLoading implements Loading{
 
@@ -28,16 +28,17 @@ public class ConnectionsLoading implements Loading{
 		
 		String[] line = new String[10];
 		String s;
-		try {
+		/*try {
 			bfr.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		try {
 			while((s=bfr.readLine())!=null) {
 				line = s.split("  ");
 				graph.addEdge(Integer.parseInt(line[0]), new Edge(Integer.parseInt(line[1]), Integer.parseInt(line[2])));
+				graph.addEdge(Integer.parseInt(line[1]), new Edge(Integer.parseInt(line[0]), Integer.parseInt(line[2])));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

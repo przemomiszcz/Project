@@ -27,4 +27,8 @@ public class Order {
 	public String toString() {
 		return orders.toString();
 	}
+	
+	public Package getElem() {
+		return orders.elementAt(0);
+	}
 }

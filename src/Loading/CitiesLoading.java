@@ -30,14 +30,14 @@ public class CitiesLoading implements Loading{
 		
 		String[] line = new String[10];
 		String s;
-		try {
+		/*try {
 			bfr.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		try {
-			while((s=bfr.readLine())!=null) {
+			while((s = bfr.readLine()) != null) {
 				line = s.split("  ");
 				graph.addPeak(Integer.parseInt(line[0]), new Peak(Integer.parseInt(line[0]), line[1]));
 			}

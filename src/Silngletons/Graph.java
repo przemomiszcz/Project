@@ -36,5 +36,6 @@ public class Graph {
 	public Vector<Peak> getPeaks() {
 		return peaks;
 	}
+	
  	
 }

@@ -1,3 +1,5 @@
+package Main;
+
 import Loading.CitiesLoading;
 import Loading.ConnectionsLoading;
 import Loading.PackagesLoading;
@@ -20,8 +22,12 @@ public class Main {
 		Graph graph =  Graph.getInstance();
 		Order order = Order.getInstance();
 		
-		System.out.println("dupa");
+		//System.out.println(graph);
+		//System.out.println(order);
 
+		Dijkstra dijkstra = new Dijkstra(graph.getPeaks(), order.getElem().getBase());
+		dijkstra.start();
+		System.out.println("Skoñczona dupa");
 	}
 
 }

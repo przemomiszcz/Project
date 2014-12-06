@@ -29,11 +29,11 @@ public class PackagesLoading implements Loading{
 		
 		String[] line = new String[10];
 		String s;
-		try {
+		/*try {
 			bfr.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		try {
 			while((s=bfr.readLine())!=null) {
@@ -43,6 +43,11 @@ public class PackagesLoading implements Loading{
 						Integer.parseInt(line[2]),
 						line[3],
 						Integer.parseInt(line[4])));
+						
+						
+						
+			 
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
