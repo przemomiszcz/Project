@@ -28,7 +28,8 @@ public class Order {
 		return orders.toString();
 	}
 	
-	public Package getElem() {
-		return orders.elementAt(0);
+	public Package getElem(int nr) {
+		return orders.elementAt(nr);
 	}
+	
 }

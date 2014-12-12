@@ -38,6 +38,10 @@ public class Package {
 		return priority;
 	}
 	
+	public boolean getState() {
+		return state;
+	}
+	
 	public void setState() {
 		state = true;
 	}

@@ -10,6 +10,10 @@ import Silngletons.Order;
 public class Main {
 
 	public static void main(String[] args) {
+		
+		//int carsAmount = Integer.parseInt(args[0]);
+		//int capacity = Integer.parseInt(args[1]);
+		
 		System.out.println("dupa");
 		CitiesLoading cl = new CitiesLoading();
 		ConnectionsLoading ccl = new ConnectionsLoading();
@@ -25,7 +29,7 @@ public class Main {
 		//System.out.println(graph);
 		//System.out.println(order);
 
-		Dijkstra dijkstra = new Dijkstra(graph.getPeaks(), order.getElem().getBase());
+		Dijkstra dijkstra = new Dijkstra(graph.getPeaks(), order.getElem(0).getBase());
 		dijkstra.start();
 		System.out.println("Skoñczona dupa");
 	}

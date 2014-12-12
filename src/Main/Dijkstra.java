@@ -34,15 +34,20 @@ public class Dijkstra {
 		costs[source] = 0;
 		
 		while( S.size() < Q.size() *2 ) {	
-			if(tmp == source) {
+			//if(tmp == source) {
+			//	S.add(tmp);
+			//	lomzing(tmp);
+			//	tmp = search(Q.elementAt(tmp));
+			//} else {
 				S.add(tmp);
 				lomzing(tmp);
 				tmp = search(Q.elementAt(tmp));
-			} else {
-				S.add(tmp);
-				lomzing(tmp);
-				tmp = search(Q.elementAt(tmp));
-			}
+			//}
+		}
+		
+		for(int i =0; i < Q.size(); i++) {
+			System.out.println(parents[i]);
+			System.out.println(costs[i]);
 		}
 	}
 	
