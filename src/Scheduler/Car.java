@@ -10,12 +10,14 @@ public class Car extends Thread {
 	private int id;
 	private Vector<Package> vector = new Vector<Package>();
 	private int cost;
+	private int[] parents;
 	
-	public Car(int id, int capacity, Vector<Package> vector) {
+	public Car(int id, int capacity, Vector<Package> vector, int[] parents) {
 		this.capacity = capacity;
 		this.id = id;
 		this.vector = vector;
 		this.cost =0;
+		this.parents = parents;
 	}
 	
 	@Override
@@ -45,9 +47,9 @@ public class Car extends Thread {
 					if(vector.elementAt(i).getState() == false)
 						vector.elementAt(i).setState();
 						load++;
-				} else if(scheduler.getParent(nr) != -1){
+				} else if(parents[nr] != -1){
 					tmp = nr;
-					if(vector.elementAt(i).getTarget() == scheduler.getParent(tmp)) {
+					if(vector.elementAt(i).getTarget() == parents[tmp]) {
 						if(vector.elementAt(i).getState() == false) {
 							load++;
 							vector.elementAt(i).setState();
