@@ -1,8 +1,11 @@
 package Scheduler;
 
 import java.util.Vector;
+
+import Silngletons.Graph;
 import Silngletons.Order;
 import Parts.Package;
+import Parts.Peak;
 
 
 public class Car extends Thread {
@@ -11,13 +14,15 @@ public class Car extends Thread {
 	private Vector<Package> vector = new Vector<Package>();
 	private int cost;
 	private int[] parents;
+	private Graph graph;
 	
-	public Car(int id, int capacity, Vector<Package> vector, int[] parents) {
+	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graph graph) {
 		this.capacity = capacity;
 		this.id = id;
 		this.vector = vector;
 		this.cost =0;
 		this.parents = parents;
+		this.graph = graph;
 	}
 	
 	@Override
@@ -27,6 +32,7 @@ public class Car extends Thread {
 		int load =0;
 		int target = 0;
 		int tmp=0;
+		int previousParent = 0;
 		
 		for(int i = 0; i < vector.size(); i++) {
 			if(vector.elementAt(i).getState() == false) {
@@ -39,6 +45,8 @@ public class Car extends Thread {
 		}
 		
 		vector.elementAt(nr).setState();
+		tmp = nr;
+		this.cost = graph.getPeaks().elementAt(nr).getConcretEdge(parents[nr]).getTime();
 		
 		if(load < this.capacity) {
 			target = vector.elementAt(nr).getTarget();
@@ -47,14 +55,18 @@ public class Car extends Thread {
 					if(vector.elementAt(i).getState() == false)
 						vector.elementAt(i).setState();
 						load++;
-				} else if(parents[nr] != -1){
-					tmp = nr;
+						this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
+				} else if(parents[tmp] != -1){
+					previousParent = parents[tmp];
 					if(vector.elementAt(i).getTarget() == parents[tmp]) {
 						if(vector.elementAt(i).getState() == false) {
 							load++;
 							vector.elementAt(i).setState();
+							this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[tmp]).getTime();
 						}
+						
 					}
+					tmp = previousParent;
 				}
 			}
 		} 

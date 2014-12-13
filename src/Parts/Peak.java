@@ -39,5 +39,16 @@ public class Peak {
 		return edges.size();
 	}
 	
-	
+	public Vector<Edge> getEdges() {
+		return edges;
+	}
+
+	public Edge getConcretEdge(int source) {
+		for(Edge e : edges) {
+			if(e.getTarget() == source) {
+				return e;
+			}
+		}
+		return null;
+	}
 }
