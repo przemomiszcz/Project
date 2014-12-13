@@ -71,38 +71,41 @@ public class Car extends Thread {
 		System.out.println("indexMax = " + indexMax);
 		
 		if(load < this.capacity) { 
-			System.out.println("wchodzimy do ifa z capacity");
+			System.out.println("wchodzimy do ifa z tym samym miastem");
 			target = nr;
 			System.out.println("target = " + target);
 			for(int i = 0; i < vector.size(); i++) { //iteruje po zestawie paczek
-				System.out.println("wchodzimy do fora po raz i-ty "+ i);
-				for(int l = i; l < vector.size(); l++) { // sprawdzam czy do miasta "nr" sa jeszcze jakies paczki do dostraczenia
-					if(vector.elementAt(l).getTarget() == target && load<this.capacity) {
-						System.out.println("wchodzimy do ifa z targetem przy czym target = "+target+ " i getTarget()= " +vector.elementAt(l).getTarget()+"a l= "+l+" a i= "+i);
-					    	if(vector.elementAt(l).getState() == false) {
-					    		System.out.println("wchodzimy do ifa jesli false przy czym vector.elementAt(l).getState()= " + vector.elementAt(l).getState());
-					    		vector.elementAt(l).setState();
-					    		System.out.println("to samo miasto " + vector.elementAt(l).getState());
+				System.out.println("wchodzimy do fora po raz i-ty "+ i);// sprawdzam czy do miasta "nr" sa jeszcze jakies paczki do dostraczenia
+				 if(vector.elementAt(i).getTarget() == target && load<this.capacity) {
+						System.out.println("wchodzimy do ifa z targetem przy czym target = "+target+ " i getTarget()= " +vector.elementAt(i).getTarget()+" a i= "+i);
+					    	if(vector.elementAt(i).getState() == false) {
+					    		System.out.println("wchodzimy do ifa jesli false przy czym vector.elementAt(l).getState()= " + vector.elementAt(i).getState());
+					    		vector.elementAt(i).setState();
+					    		System.out.println("to samo miasto " + vector.elementAt(i).getState());
 					    		load++;
 					    	}		//this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
 						}
-				} 
-				if(parents[tmp] != -1 && load < this.capacity){ //jesli zostalo miejsca sprawdzam czy moge dostarczyc paczke gdzies "po drodze"
-					System.out.println("wchodzimy do ifa z parentami");
-					previousParent = parents[tmp];
-					System.out.println("Pp = " + previousParent+ " parents[tmp] = "+ parents[tmp] + " tmp= "+tmp);
-					for(int k = 0; k < tmpParents.length; k++) {
-					if(vector.elementAt(i).getTarget() == tmpParents[k] && load < this.capacity) {
-						System.out.println("wchodzimy do ifa przy czym gettarget= "+vector.elementAt(i).getTarget());
-						if(vector.elementAt(i).getState() == false) {
-							load++;
-							vector.elementAt(i).setState();
-							System.out.println("miasto rodzic");
-							//this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[tmp]).getTime();
-						}
-						
+			}
+			if(load < this.capacity) {
+				for(int l = 0; l < vector.size(); l++) {
+					System.out.println("wchodzimy do fora po raz l-ty "+ l);
+					if(parents[tmp] != -1 && load < this.capacity){ //jesli zostalo miejsca sprawdzam czy moge dostarczyc paczke gdzies "po drodze"
+						System.out.println("wchodzimy do ifa z parentami");
+						previousParent = parents[tmp];
+						System.out.println("Pp = " + previousParent+ " parents[tmp] = "+ parents[tmp] + " tmp= "+tmp);
+							for(int k = 0; k < tmpParents.length; k++) {
+								if(vector.elementAt(l).getTarget() == tmpParents[k] && load < this.capacity) {
+									System.out.println("wchodzimy do ifa przy czym gettarget= "+vector.elementAt(l).getTarget());
+									if(vector.elementAt(l).getState() == false) {
+										load++;
+										vector.elementAt(l).setState();
+										System.out.println("miasto rodzic");
+										//this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[tmp]).getTime();
+									}
+								}
+								tmp = previousParent; 
+							}
 					}
-					tmp = previousParent; }
 				}
 			}
 		} 
