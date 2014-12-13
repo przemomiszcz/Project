@@ -27,16 +27,16 @@ public class Car extends Thread {
 	
 	@Override
 	public void run() {
-		int maxPr  = 0;
-		int nr = 0;
-		int load =0;
-		int target = 0;
-		int tmp=0;
-		int previousParent = 0;
-		int indexMax = 0;
-		int[] tmpParents = new int[parents.length];
-		int singleTmp = 0;
-		int j = 0;
+		int maxPr  = 0; //najwieksszy priorytet
+		int nr = 0; // numer miasta o paczce z najwiekszym priorytetem
+		int load =0; // ilosc zaladowanych do samochodu paczek
+		int target = 0; // robocza zmienna dla "nr"
+		int tmp=0; // robocza zmienna szewrokiego zastosowania ;)
+		int previousParent = 0; //indeks poprzednio rozpatrywanego rodzica
+		int indexMax = 0; //indeks paczki o maksymalnym priorytecie
+		int[] tmpParents = new int[parents.length]; //robocza tablica poprzednikow miasta "nr"
+		int singleTmp = 0; // robocza zmienna zawierajaca aktualnie rozpatrywanego poprzednika 
+		int j = 0; // robocza zmienna szerokiego zastosowania 2
 		
 		for(int i =0; i<tmpParents.length; i++) {
 			tmpParents[i] = 666;
