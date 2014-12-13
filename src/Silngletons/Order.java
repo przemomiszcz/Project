@@ -32,4 +32,8 @@ public class Order {
 		return orders.elementAt(nr);
 	}
 	
+	public Vector<Package> getOrder() {
+		return orders;
+	}
+	
 }
