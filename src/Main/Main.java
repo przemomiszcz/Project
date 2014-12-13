@@ -31,6 +31,7 @@ public class Main {
 
 		Dijkstra dijkstra = new Dijkstra(graph.getPeaks(), order.getElem(0).getBase());
 		dijkstra.start();
+		Scheduler scheduler = new Scheduler(dijkstra.getParents());
 		System.out.println("Skoñczona dupa");
 	}
 

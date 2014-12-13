@@ -74,4 +74,8 @@ public class Dijkstra {
 			}
 		}
 	}
-}
+	
+	public int[] getParents() {
+		return parents;
+	}
+ }
