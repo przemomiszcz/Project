@@ -42,7 +42,7 @@ public class Car extends Thread {
 			tmpParents[i] = 666;
 		}
 		
-		for(int i = 0; i < vector.size(); i++) {
+		for(int i = 0; i < vector.size(); i++) { //szukam paczki o najwiekszym priorytecie
 			if(vector.elementAt(i).getState() == false) {
 				if(vector.elementAt(i).getPriority() > maxPr) {
 					maxPr = vector.elementAt(i).getPriority();
@@ -53,7 +53,7 @@ public class Car extends Thread {
 			}	
 		}
 		singleTmp = nr;
-		while(singleTmp != -1) {
+		while(singleTmp != -1) { //tworze tablice poprzednikow
 			tmpParents[j] = parents[singleTmp];
 			singleTmp = parents[singleTmp];
 			j++;
@@ -70,13 +70,13 @@ public class Car extends Thread {
 		System.out.println("cost = "+cost);
 		System.out.println("indexMax = " + indexMax);
 		
-		if(load < this.capacity) {
+		if(load < this.capacity) { 
 			System.out.println("wchodzimy do ifa z capacity");
 			target = nr;
 			System.out.println("target = " + target);
-			for(int i = 0; i < vector.size(); i++) {
+			for(int i = 0; i < vector.size(); i++) { //iteruje po zestawie paczek
 				System.out.println("wchodzimy do fora po raz i-ty "+ i);
-				for(int l = i; l < vector.size(); l++) {
+				for(int l = i; l < vector.size(); l++) { // sprawdzam czy do miasta "nr" sa jeszcze jakies paczki do dostraczenia
 					if(vector.elementAt(l).getTarget() == target && load<this.capacity) {
 						System.out.println("wchodzimy do ifa z targetem przy czym target = "+target+ " i getTarget()= " +vector.elementAt(l).getTarget()+"a l= "+l+" a i= "+i);
 					    	if(vector.elementAt(l).getState() == false) {
@@ -87,7 +87,7 @@ public class Car extends Thread {
 					    	}		//this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
 						}
 				} 
-				if(parents[tmp] != -1 && load < this.capacity){
+				if(parents[tmp] != -1 && load < this.capacity){ //jesli zostalo miejsca sprawdzam czy moge dostarczyc paczke gdzies "po drodze"
 					System.out.println("wchodzimy do ifa z parentami");
 					previousParent = parents[tmp];
 					System.out.println("Pp = " + previousParent+ " parents[tmp] = "+ parents[tmp] + " tmp= "+tmp);
