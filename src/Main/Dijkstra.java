@@ -10,7 +10,6 @@ public class Dijkstra {
 	private int[] costs;
 	private int[] parents;
 	private int source;
-	private int minTime;
 	private int tmp;
 	
 	

@@ -1,4 +1,4 @@
-package Main;
+package Scheduler;
 
 public class Scheduler {
 	private int[] parents;
@@ -7,7 +7,7 @@ public class Scheduler {
 		this.parents = parents;
 	}
 	
-	public int[] getPar() {
-		return parents;
+	public int getParent(int i) {
+		return parents[i];
 	}
 }

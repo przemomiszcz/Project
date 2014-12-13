@@ -1,4 +1,4 @@
-package Main;
+package Scheduler;
 
 import java.util.Vector;
 import Silngletons.Order;
@@ -23,7 +23,8 @@ public class Car extends Thread {
 		int maxPr  = 0;
 		int nr = 0;
 		int load =0;
-		int base = 0;
+		int target = 0;
+		int tmp=0;
 		
 		for(int i = 0; i < vector.size(); i++) {
 			if(vector.elementAt(i).getState() == false) {
@@ -38,14 +39,20 @@ public class Car extends Thread {
 		vector.elementAt(nr).setState();
 		
 		if(load < this.capacity) {
-			base = vector.elementAt(nr).getBase();
+			target = vector.elementAt(nr).getTarget();
 			for(int i = 0; i < vector.size(); i++) {
-				if(vector.elementAt(i).getBase() == base) {
+				if(vector.elementAt(i).getTarget() == target) {
 					if(vector.elementAt(i).getState() == false)
 						vector.elementAt(i).setState();
 						load++;
-				} else {
-					
+				} else if(scheduler.getParent(nr) != -1){
+					tmp = nr;
+					if(vector.elementAt(i).getTarget() == scheduler.getParent(tmp)) {
+						if(vector.elementAt(i).getState() == false) {
+							load++;
+							vector.elementAt(i).setState();
+						}
+					}
 				}
 			}
 		} 
