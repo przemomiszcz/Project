@@ -30,6 +30,7 @@ public class Scheduler {
 			cars[i] = new Car(i, capacity, vector, parents, graph);
 		}
 		for(int i =0; i < cars.length; i++) {
+			System.out.println("samochod nr : " +i);
 			cars[i].run();
 		}
 	}

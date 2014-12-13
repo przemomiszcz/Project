@@ -76,16 +76,18 @@ public class Car extends Thread {
 			System.out.println("target = " + target);
 			for(int i = 0; i < vector.size(); i++) {
 				System.out.println("wchodzimy do fora po raz i-ty "+ i);
-				if(vector.elementAt(i).getTarget() == target) {
-					System.out.println("wchodzimy do ifa z targetem przy czym target = "+target+ " i getTarget()= " +vector.elementAt(i).getTarget());
-					if(vector.elementAt(i).getState() == false) {
-						System.out.println("wchodzimy do ifa jesli false przy czym vector.elementAt(i).getState()= " + vector.elementAt(i).getState());
-						vector.elementAt(i).setState();
-						System.out.println("to samo miasto " + vector.elementAt(i).getState());
-						load++;
-						//this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
-					}
-				} else if(parents[tmp] != -1){
+				for(int l = i; l < vector.size(); l++) {
+					if(vector.elementAt(l).getTarget() == target && load<this.capacity) {
+						System.out.println("wchodzimy do ifa z targetem przy czym target = "+target+ " i getTarget()= " +vector.elementAt(l).getTarget()+"a l= "+l+" a i= "+i);
+					    	if(vector.elementAt(l).getState() == false) {
+					    		System.out.println("wchodzimy do ifa jesli false przy czym vector.elementAt(l).getState()= " + vector.elementAt(l).getState());
+					    		vector.elementAt(l).setState();
+					    		System.out.println("to samo miasto " + vector.elementAt(l).getState());
+					    		load++;
+					    	}		//this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
+						}
+				} 
+				if(parents[tmp] != -1 && load < this.capacity){
 					System.out.println("wchodzimy do ifa z parentami");
 					previousParent = parents[tmp];
 					System.out.println("Pp = " + previousParent+ " parents[tmp] = "+ parents[tmp] + " tmp= "+tmp);
