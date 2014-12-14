@@ -26,11 +26,13 @@ public class Main {
 		
 		Graph graph =  Graph.getInstance();
 		Order order = Order.getInstance();
-		
+		System.out.println(graph.countTargets());
+		System.out.println(graph.countConcretTargets(0));
 		//System.out.println(graph);
 		//System.out.println(order);
 
 		Dijkstra dijkstra = new Dijkstra(graph.getPeaks(), order.getElem(0).getBase());
+		System.out.println(graph.getPeaks());
 		dijkstra.start();
 		Scheduler scheduler = new Scheduler(5, 1, dijkstra.getParents(), graph, order.getOrder());
 		scheduler.start();

@@ -37,5 +37,15 @@ public class Graph {
 		return peaks;
 	}
 	
+ 	public int countTargets() {
+ 		int tmp=0;
+ 		for(int i =0; i <peaks.size(); i++) {
+ 			tmp++;
+ 		}
+ 		return tmp;
+ 	}
  	
+ 	public int countConcretTargets(int nr) {
+ 		return peaks.elementAt(nr).getEdges().size();
+ 	}
 }

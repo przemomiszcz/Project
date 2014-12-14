@@ -39,10 +39,11 @@ public class Car extends Thread {
 		int singleTmp = 0; // robocza zmienna zawierajaca aktualnie rozpatrywanego poprzednika 
 		int j = 0; // robocza zmienna szerokiego zastosowania 2
 		Vector<Integer> passed = new Vector<Integer>();
+		int a = 0;
 		
-		//for(int i =0; i<tmpParents.length; i++) {
-		//	tmpParents[i] = 666;
-		//}
+		for(int i =0; i<tmpParents.length; i++) {
+			tmpParents[i] = 666;
+		}
 		
 		for(int i = 0; i < vector.size(); i++) { //szukam paczki o najwiekszym priorytecie
 			if(vector.elementAt(i).getState() == false) {
@@ -61,9 +62,13 @@ public class Car extends Thread {
 			j++;
 		}
 		
-		//for(j=0;j<tmpParents.length; j++) {
-		//	System.out.println("tmpParents: "+tmpParents[j]);
-		//}
+		while(a < tmpParents.length-1) {
+			if(tmpParents[a] != -1 && tmpParents[a] != 666) {
+			passed.add(tmp, tmpParents[a]);
+			tmp++;
+			}
+			a++;
+		}
 		
 		//System.out.println(" dobralem glowne miasto, jej nr= " + nr);
 	
@@ -88,8 +93,9 @@ public class Car extends Thread {
 					    		vector.elementAt(i).setState();
 					    		//System.out.println("to samo miasto " + vector.elementAt(i).getState());
 					    		load++;
-					    	}		//this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
+					    		this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
 						}
+				}
 			}
 			
 		}
@@ -109,9 +115,29 @@ public class Car extends Thread {
 		} 
 		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 	}
-	
-	public int getCost() {
-		return cost;
+	//graph.getPeaks().elementAt(c).getEdges().elementAt(d).getTarget()
+	public void countCost(int nr, Vector<Integer> passed) {
+		int cost=0;
+		if(cost == 0)
+			for(int e =0; e<passed.size(); e++) {
+				for(int c=0; c < graph.countTargets(); c++) {
+					for(int d =0; d < graph.countConcretTargets(nr); d++) {
+						if(nr == graph.getPeaks().elementAt(nr).getNr() && passed.elementAt(e) == graph.getPeaks().elementAt(c).getConcretEdge(d).getTarget()) {
+						
+						} else if(nr == graph.getPeaks().elementAt(c).getConcretEdge(d).getTarget() && passed.elementAt(e) == graph.getPeaks().elementAt(nr).getNr()) {
+						
+						}
+					}
+				}
+			}	
+		}
+		for(int a =0; a<=passed.size(); a++) {
+			for(int b =0; b <graph.countTargets(); b++) {
+				
+					if(passed.elementAt(a) == graph.getPeaks().elementAt())
+				
+			}
+		}
 	}
 	
 	
