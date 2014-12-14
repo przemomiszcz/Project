@@ -1,5 +1,6 @@
 package Scheduler;
 
+import java.awt.List;
 import java.util.Vector;
 
 import Silngletons.Graph;
@@ -37,10 +38,11 @@ public class Car extends Thread {
 		int[] tmpParents = new int[parents.length]; //robocza tablica poprzednikow miasta "nr"
 		int singleTmp = 0; // robocza zmienna zawierajaca aktualnie rozpatrywanego poprzednika 
 		int j = 0; // robocza zmienna szerokiego zastosowania 2
+		Vector<Integer> passed = new Vector<Integer>();
 		
-		for(int i =0; i<tmpParents.length; i++) {
-			tmpParents[i] = 666;
-		}
+		//for(int i =0; i<tmpParents.length; i++) {
+		//	tmpParents[i] = 666;
+		//}
 		
 		for(int i = 0; i < vector.size(); i++) { //szukam paczki o najwiekszym priorytecie
 			if(vector.elementAt(i).getState() == false) {
@@ -59,57 +61,53 @@ public class Car extends Thread {
 			j++;
 		}
 		
+		//for(j=0;j<tmpParents.length; j++) {
+		//	System.out.println("tmpParents: "+tmpParents[j]);
+		//}
 		
-		System.out.println(" dobralem glowne miasto, jej nr= " + nr);
+		//System.out.println(" dobralem glowne miasto, jej nr= " + nr);
 	
-		System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
+		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 		vector.elementAt(indexMax).setState();
-		System.out.println("dostarczenie nr " +vector.elementAt(indexMax).getState());
+		//System.out.println("dostarczenie nr " +vector.elementAt(indexMax).getState());
 		tmp = nr;
 		this.cost = graph.getPeaks().elementAt(nr).getConcretEdge(parents[nr]).getTime();
 		System.out.println("cost = "+cost);
-		System.out.println("indexMax = " + indexMax);
+		//System.out.println("indexMax = " + indexMax);
 		
 		if(load < this.capacity) { 
-			System.out.println("wchodzimy do ifa z tym samym miastem");
+			//System.out.println("wchodzimy do ifa z tym samym miastem");
 			target = nr;
-			System.out.println("target = " + target);
+			//System.out.println("target = " + target);
 			for(int i = 0; i < vector.size(); i++) { //iteruje po zestawie paczek
-				System.out.println("wchodzimy do fora po raz i-ty "+ i);// sprawdzam czy do miasta "nr" sa jeszcze jakies paczki do dostraczenia
+				//System.out.println("wchodzimy do fora po raz i-ty "+ i);// sprawdzam czy do miasta "nr" sa jeszcze jakies paczki do dostraczenia
 				 if(vector.elementAt(i).getTarget() == target && load<this.capacity) {
-						System.out.println("wchodzimy do ifa z targetem przy czym target = "+target+ " i getTarget()= " +vector.elementAt(i).getTarget()+" a i= "+i);
+						//System.out.println("wchodzimy do ifa z targetem przy czym target = "+target+ " i getTarget()= " +vector.elementAt(i).getTarget()+" a i= "+i);
 					    	if(vector.elementAt(i).getState() == false) {
-					    		System.out.println("wchodzimy do ifa jesli false przy czym vector.elementAt(l).getState()= " + vector.elementAt(i).getState());
+					    		//System.out.println("wchodzimy do ifa jesli false przy czym vector.elementAt(l).getState()= " + vector.elementAt(i).getState());
 					    		vector.elementAt(i).setState();
-					    		System.out.println("to samo miasto " + vector.elementAt(i).getState());
+					    		//System.out.println("to samo miasto " + vector.elementAt(i).getState());
 					    		load++;
 					    	}		//this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
 						}
 			}
-			if(load < this.capacity) {
-				for(int l = 0; l < vector.size(); l++) {
-					System.out.println("wchodzimy do fora po raz l-ty "+ l);
-					if(parents[tmp] != -1 && load < this.capacity){ //jesli zostalo miejsca sprawdzam czy moge dostarczyc paczke gdzies "po drodze"
-						System.out.println("wchodzimy do ifa z parentami");
-						previousParent = parents[tmp];
-						System.out.println("Pp = " + previousParent+ " parents[tmp] = "+ parents[tmp] + " tmp= "+tmp);
-							for(int k = 0; k < tmpParents.length; k++) {
-								if(vector.elementAt(l).getTarget() == tmpParents[k] && load < this.capacity) {
-									System.out.println("wchodzimy do ifa przy czym gettarget= "+vector.elementAt(l).getTarget());
-									if(vector.elementAt(l).getState() == false) {
-										load++;
-										vector.elementAt(l).setState();
-										System.out.println("miasto rodzic");
-										//this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[tmp]).getTime();
-									}
-								}
-								tmp = previousParent; 
-							}
+			
+		}
+		if(load < this.capacity) {
+			for(int i = 0; i < vector.size(); i++) {
+				//System.out.println("wchodzimy do fora PARENTOW po raz i-ty "+ i);
+				for(j=0; j < tmpParents.length; j++) {
+					//System.out.println("wchodzimy do fora po raz j-ty "+ j);
+					if(load < this.capacity && vector.elementAt(i).getTarget() == tmpParents[j]) {
+						//System.out.println("wchodzimy do ifa przy czym gettarget= "+vector.elementAt(i).getTarget()+ " a tmpparents[j]= "+tmpParents[j]);
+						vector.elementAt(i).setState();
+						load++; 
+						//System.out.println("jeden z parentow( "+tmpParents[j]+ " ) ma dostarczenie "+vector.elementAt(i).getState());
 					}
 				}
 			}
 		} 
-		System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
+		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 	}
 	
 	public int getCost() {
