@@ -15,6 +15,7 @@ public class Car extends Thread {
 	private int cost;
 	private int[] parents;
 	private Graph graph;
+	private Vector<Integer> properCosts = new Vector<>();
 	
 	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graph graph) {
 		this.capacity = capacity;
@@ -68,9 +69,9 @@ public class Car extends Thread {
 			a++;
 		}
 		
-		for(int i =0; i<passed.size(); i++) {
-			 System.out.println("passed[ " + i+ " ]= "+passed.elementAt(i));
-		}
+		//for(int i =0; i<passed.size(); i++) {
+		//	 System.out.println("passed[ " + i+ " ]= "+passed.elementAt(i));
+		//}
 		
 		//System.out.println(" dobralem glowne miasto, jej nr= " + nr);
 	
@@ -80,7 +81,7 @@ public class Car extends Thread {
 		tmp = nr;
 		this.cost = graph.getPeaks().elementAt(nr).getConcretEdge(parents[nr]).getTime();
 		//System.out.println("cost = "+cost);
-		System.out.println("indexMax = " + indexMax);
+		//System.out.println("indexMax = " + indexMax);
 		
 		if(load < this.capacity) { 
 			//System.out.println("wchodzimy do ifa z tym samym miastem");
@@ -116,7 +117,7 @@ public class Car extends Thread {
 			}
 		}
 		Vector<Integer> v = countCost(nr, passed);
-		System.out.println("cost finalny= "+v);
+		//System.out.println("cost finalny= "+v);
 		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 	}
 	//graph.getPeaks().elementAt(c).getEdges().elementAt(d).getTarget()
@@ -159,7 +160,22 @@ public class Car extends Thread {
 				}	
 			}
 		}
+		changeVector(koszty);
 		return koszty;
+		
+	}
+	
+	public Vector<Integer> getCosts() {
+		return this.properCosts;
+	}
+	
+	public void changeVector(Vector<Integer> koszty) {
+		int j =koszty.size() -2;
+		for(int i =0; i < koszty.size()-1; i++) {
+				properCosts.add(i, koszty.elementAt(j));
+				System.out.println(properCosts.elementAt(i) + " i= "+i);
+			j--;
+		}
 	}
 	
 	

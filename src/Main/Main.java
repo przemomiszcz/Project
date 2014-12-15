@@ -40,7 +40,7 @@ public class Main {
 		}*/
 
 		Dijkstra dijkstra = new Dijkstra(graph.getPeaks(), order.getElem(0).getBase());
-		System.out.println(graph.getPeaks());
+		//System.out.println(graph.getPeaks());
 		dijkstra.start();
 		Scheduler scheduler = new Scheduler(5, 1, dijkstra.getParents(), graph, order.getOrder());
 		scheduler.start();
