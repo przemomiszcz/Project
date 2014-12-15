@@ -3,3 +3,4 @@
 003  3  0  Paczka indeksów PW  100
 004  3  1  Pude³ka dla IKEA  10
 005  3  2  Wibrator dla Lessi  80
+006  3  4  Dmuchana lala dla maæka  50

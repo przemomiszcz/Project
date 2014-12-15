@@ -81,7 +81,7 @@ public class Car extends Thread {
 		tmp = nr;
 		this.cost = graph.getPeaks().elementAt(nr).getConcretEdge(parents[nr]).getTime();
 		//System.out.println("cost = "+cost);
-		//System.out.println("indexMax = " + indexMax);
+		System.out.println("indexMax = " + indexMax);
 		
 		if(load < this.capacity) { 
 			//System.out.println("wchodzimy do ifa z tym samym miastem");
