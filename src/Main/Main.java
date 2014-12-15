@@ -26,10 +26,18 @@ public class Main {
 		
 		Graph graph =  Graph.getInstance();
 		Order order = Order.getInstance();
-		System.out.println(graph.countTargets());
-		System.out.println(graph.countConcretTargets(0));
+		System.out.println("ilosc peakow: "+graph.countPeaks());
+		System.out.println("cele z 3 miasta: "+graph.countConcretTargets(3));
 		//System.out.println(graph);
 		//System.out.println(order);
+		
+		/*for(int i =0; i < 5; i++) {
+			for(int j=0; j<=5; j++) {
+				if(graph.getPeaks().elementAt(i).getConcretEdge(j) != null) {
+					System.out.println("z miasta i= "+i+" edge ma nr= "+graph.getPeaks().elementAt(i).getConcretEdge(j));
+				}
+			}
+		}*/
 
 		Dijkstra dijkstra = new Dijkstra(graph.getPeaks(), order.getElem(0).getBase());
 		System.out.println(graph.getPeaks());

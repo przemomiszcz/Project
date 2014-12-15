@@ -43,7 +43,7 @@ public class Peak {
 		return edges;
 	}
 
-	public Edge getConcretEdge(int source) {
+	public Edge getConcretEdge(int source) { 
 		for(Edge e : edges) {
 			if(e.getTarget() == source) {
 				return e;

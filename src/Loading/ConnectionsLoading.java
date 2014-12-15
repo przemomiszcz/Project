@@ -37,8 +37,8 @@ public class ConnectionsLoading implements Loading{
 		try {
 			while((s=bfr.readLine())!=null) {
 				line = s.split("  ");
-				graph.addEdge(Integer.parseInt(line[0]), new Edge(Integer.parseInt(line[1]), Integer.parseInt(line[2])*2));
-				graph.addEdge(Integer.parseInt(line[1]), new Edge(Integer.parseInt(line[0]), Integer.parseInt(line[2])*2));
+				graph.addEdge(Integer.parseInt(line[0]), new Edge(Integer.parseInt(line[1]), Integer.parseInt(line[2])));
+				graph.addEdge(Integer.parseInt(line[1]), new Edge(Integer.parseInt(line[0]), Integer.parseInt(line[2])));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

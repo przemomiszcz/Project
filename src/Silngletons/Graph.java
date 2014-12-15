@@ -37,7 +37,7 @@ public class Graph {
 		return peaks;
 	}
 	
- 	public int countTargets() {
+ 	public int countPeaks() { // zwraca ilosc peakow
  		int tmp=0;
  		for(int i =0; i <peaks.size(); i++) {
  			tmp++;
@@ -45,7 +45,7 @@ public class Graph {
  		return tmp;
  	}
  	
- 	public int countConcretTargets(int nr) {
+ 	public int countConcretTargets(int nr) { //zwraca ilosc edgy konkretnego miasta
  		return peaks.elementAt(nr).getEdges().size();
  	}
 }
