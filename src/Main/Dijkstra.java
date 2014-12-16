@@ -25,7 +25,7 @@ public class Dijkstra {
 	public void start() {
 		
 		for(int i =0; i < costs.length; i++) {
-			costs[i] = 123456;
+			costs[i] = 666;
 			parents[i] = -1;
 		}
 		

@@ -4,9 +4,9 @@ import java.util.Vector;
 import Parts.*;
 
 
-public class Graph {
+public class Graph {					//glowny graf zawierajacy miasta
 	private static Graph instance = null;
-	private Vector<Peak> peaks;
+	private Vector<Peak> peaks;			//vector miast
 	
 	private Graph() {
 		peaks = new Vector<>();

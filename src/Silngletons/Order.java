@@ -3,9 +3,9 @@ package Silngletons;
 import java.util.Vector;
 import Parts.Package;
 
-public class Order {
+public class Order { //singleton zawierajacy paczki
 	private static Order instance = null;
-	private Vector<Package> orders = null;
+	private Vector<Package> orders = null; //vector paczek
 	
 	private Order() {
 		orders = new Vector<Package>();
@@ -19,7 +19,7 @@ public class Order {
 		return instance;
 	}
 	
-	public void addPackage(Package p) {
+	public void addPackage(Package p) { //dodawanie paczki
 		orders.addElement(p);
 	}
 	
@@ -34,6 +34,10 @@ public class Order {
 	
 	public Vector<Package> getOrder() {
 		return orders;
+	}
+	
+	public int getPackageAmount() {
+		return orders.size();
 	}
 	
 }

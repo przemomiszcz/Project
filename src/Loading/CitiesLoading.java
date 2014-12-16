@@ -8,7 +8,7 @@ import Parts.Peak;
 import Silngletons.*;
 
 
-public class CitiesLoading implements Loading{
+public class CitiesLoading implements Loading{ //wczytywanie miast jako wierzcholki grafu
 
 	private FileReader fr;
 	private BufferedReader bfr;

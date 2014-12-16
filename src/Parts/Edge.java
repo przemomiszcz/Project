@@ -2,8 +2,8 @@ package Parts;
 
 
 public class Edge {
-	private int target;
-	private int time;
+	private int target;          //cel polaczenia
+	private int time;			//koszt polaczenie
 	
 	public Edge(int target, int time) {
 		this.target = target;

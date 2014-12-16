@@ -4,9 +4,9 @@ import java.util.Vector;
 
 
 public class Peak {
-	private int nr;
-	private String name;
-	private Vector<Edge> edges;
+	private int nr;					//nr miasta	
+	private String name;			// nazwa miasta
+	private Vector<Edge> edges;		// vector polaczen wychodzacych z tego miasta
 	
 	public Peak(int nr, String name) {
 		this.nr =nr;
@@ -28,7 +28,8 @@ public class Peak {
 	
 	@Override
 	public String toString() {
-		return "nr miasta :" + nr + " nazwa miasta " + name + edges;
+		return  " nazwa miasta: " + name;
+		//+ edges"nr miasta :" + nr +;
 	}
 	
 	public Edge getEdge(int index) {
@@ -43,7 +44,7 @@ public class Peak {
 		return edges;
 	}
 
-	public Edge getConcretEdge(int source) { 
+	public Edge getConcretEdge(int source) {  //zwraca edge o konkretnym zrodle/celu
 		for(Edge e : edges) {
 			if(e.getTarget() == source) {
 				return e;

@@ -6,7 +6,7 @@ import java.io.IOException;
 import Silngletons.*;
 import Parts.Edge;
 
-public class ConnectionsLoading implements Loading{
+public class ConnectionsLoading implements Loading{ //wczytywanie polaczen jako krawdzi grafu
 
 	private FileReader fr;
 	private BufferedReader bfr;

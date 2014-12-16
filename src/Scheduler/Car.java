@@ -1,5 +1,8 @@
+
 package Scheduler;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import Silngletons.Graph;
@@ -16,7 +19,8 @@ public class Car extends Thread {
 	private int[] parents;
 	private Graph graph;
 	private Vector<Integer> properCosts = new Vector<>();
-	
+	private int driven;
+		
 	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graph graph) {
 		this.capacity = capacity;
 		this.id = id;
@@ -24,25 +28,28 @@ public class Car extends Thread {
 		this.cost =0;
 		this.parents = parents;
 		this.graph = graph;
+		this.driven =0;
+
 	}
 	
 	@Override
 	public void run() {
-		int maxPr  = 0; //najwieksszy priorytet
-		int nr = 0; // numer miasta o paczce z najwiekszym priorytetem
-		int load =0; // ilosc zaladowanych do samochodu paczek
-		int target = 0; // robocza zmienna dla "nr"
-		int tmp=0; // robocza zmienna szewrokiego zastosowania ;)
-		int indexMax = 0; //indeks paczki o maksymalnym priorytecie
-		int[] tmpParents = new int[parents.length]; //robocza tablica poprzednikow miasta "nr"
-		int singleTmp = 0; // robocza zmienna zawierajaca aktualnie rozpatrywanego poprzednika 
-		int j = 0; // robocza zmienna szerokiego zastosowania 2
-		Vector<Integer> passed = new Vector<Integer>();
-		int a = 0;
+		int maxPr  = 0; 											//najwieksszy priorytet
+		int nr = 0; 												// numer miasta o paczce z najwiekszym priorytetem
+		int load =0; 												// ilosc zaladowanych do samochodu paczek
+		int target = 0; 											// robocza zmienna dla "nr"
+		int tmp=0; 													// robocza zmienna szewrokiego zastosowania ;)
+		int indexMax = 0; 											//indeks paczki o maksymalnym priorytecie
+		int[] tmpParents = new int[parents.length]; 				//robocza tablica poprzednikow miasta "nr"
+		int singleTmp = 0; 											// robocza zmienna zawierajaca aktualnie rozpatrywanego poprzednika 
+		int j = 0; 													// robocza zmienna szerokiego zastosowania 2
+		Vector<Integer> passed = new Vector<Integer>();				//vector poprzednikow
+		int a = 0;													// zmienna robocza szerokiego zastosowania 3
 		
 		for(int i =0; i<tmpParents.length; i++) {
 			tmpParents[i] = 666;
 		}
+		
 		
 		for(int i = 0; i < vector.size(); i++) { //szukam paczki o najwiekszym priorytecie
 			if(vector.elementAt(i).getState() == false) {
@@ -54,6 +61,7 @@ public class Car extends Thread {
 				}
 			}	
 		}
+		printStart(vector.elementAt(indexMax));
 		singleTmp = nr;
 		while(singleTmp != -1) { //tworze tablice poprzednikow
 			tmpParents[j] = parents[singleTmp];
@@ -61,7 +69,7 @@ public class Car extends Thread {
 			j++;
 		}
 		
-		while(a < tmpParents.length-1) {
+		while(a < tmpParents.length-1) { //tworze uporzadkowany vector poprzednikow
 			if(tmpParents[a] != -1 && tmpParents[a] != 666) {
 			passed.add(tmp, tmpParents[a]);
 			tmp++;
@@ -69,21 +77,16 @@ public class Car extends Thread {
 			a++;
 		}
 		
-		//for(int i =0; i<passed.size(); i++) {
-		//	 System.out.println("passed[ " + i+ " ]= "+passed.elementAt(i));
-		//}
 		
 		//System.out.println(" dobralem glowne miasto, jej nr= " + nr);
 	
 		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 		vector.elementAt(indexMax).setState();
-		//System.out.println("dostarczenie nr " +vector.elementAt(indexMax).getState());
 		tmp = nr;
 		this.cost = graph.getPeaks().elementAt(nr).getConcretEdge(parents[nr]).getTime();
-		//System.out.println("cost = "+cost);
-		System.out.println("indexMax = " + indexMax);
+		//System.out.println("load= "+load+ " capacity= "+capacity);
 		
-		if(load < this.capacity) { 
+		if(load < this.capacity) { //szukamy czy jest jakas paczka w tym samym miescie
 			//System.out.println("wchodzimy do ifa z tym samym miastem");
 			target = nr;
 			//System.out.println("target = " + target);
@@ -94,15 +97,15 @@ public class Car extends Thread {
 					    	if(vector.elementAt(i).getState() == false) {
 					    		//System.out.println("wchodzimy do ifa jesli false przy czym vector.elementAt(l).getState()= " + vector.elementAt(i).getState());
 					    		vector.elementAt(i).setState();
-					    		//System.out.println("to samo miasto " + vector.elementAt(i).getState());
+					    		printStart(vector.elementAt(i));
 					    		load++;
-					    		this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
+					    		////////////////////////////////////////////////this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
 						}
 				}
 			}
 			
 		}
-		if(load < this.capacity) {
+		if(load < this.capacity) { // szukamy paczki w miastach-poprzednikach
 			for(int i = 0; i < vector.size(); i++) {
 				//System.out.println("wchodzimy do fora PARENTOW po raz i-ty "+ i);
 				for(j=0; j < tmpParents.length; j++) {
@@ -110,23 +113,35 @@ public class Car extends Thread {
 					if(load < this.capacity && vector.elementAt(i).getTarget() == tmpParents[j]) {
 						//System.out.println("wchodzimy do ifa przy czym gettarget= "+vector.elementAt(i).getTarget()+ " a tmpparents[j]= "+tmpParents[j]);
 						vector.elementAt(i).setState();
-						load++; 
-						//System.out.println("jeden z parentow( "+tmpParents[j]+ " ) ma dostarczenie "+vector.elementAt(i).getState());
+						load++;
+						printStart(vector.elementAt(i));
+						System.out.println("load= "+load);
 					}
 				}
 			}
 		}
 		Vector<Integer> v = countCost(nr, passed);
-		//System.out.println("cost finalny= "+v);
+		
+		for(int i =0; i < properCosts.size(); i++) {
+			driven = driven + properCosts.elementAt(i);
+			try {
+				Thread.sleep(properCosts.elementAt(i)*50);
+				//tutaj wypisanie dostarczenia
+				System.out.println("driven= "+driven);
+			} catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		//System.out.println("cost finalny= "+properCosts);
 		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 	}
-	//graph.getPeaks().elementAt(c).getEdges().elementAt(d).getTarget()
-	public Vector<Integer> countCost(int nr, Vector<Integer> passed) {
+	
+	public Vector<Integer> countCost(int nr, Vector<Integer> passed) { //tworze vector kosztow przejazdu, od bazy do miasta glownego
 		Vector<Integer> koszty = new Vector<>();
 		koszty.add(0);
 		
 		
-			for(int i =0; i<passed.size(); i++) {
+			for(int i =0; i<passed.size(); i++) { //obliczam koszt z miasta glownego do poprzednika
 				//System.out.println("wchodzimy do fora po raz i-ty "+i);
 				for(int k=0; k < graph.countPeaks(); k++) {
 					//System.out.println("wchodzimy do fora po raz k-ty "+k);
@@ -139,14 +154,12 @@ public class Car extends Thread {
 								koszty.add(0, graph.getPeaks().elementAt(nr).getConcretEdge(l).getTime());
 								//System.out.println("koszt obecny= "+koszty.elementAt(0));
 							}
-						} //else if(nr == graph.getPeaks().elementAt(k).getConcretEdge(l).getTarget() && passed.elementAt(i) == graph.getPeaks().elementAt(nr).getNr()) {
-							//koszty.add(0, graph.getPeaks().elementAt(nr).getConcretEdge(l).getTime());
-						//}
+						} 
 					}
 				}
 			}	
 		
-		for(int m = 0; m < passed.size()-1; m++) {
+		for(int m = 0; m < passed.size()-1; m++) { //obliczam koszty reszty poprzednikow
 			//System.out.println("wchodzimy do fora po raz m-ty "+m);
 			for(int n =0; n < graph.countPeaks(); n++) {
 				//System.out.println("wchodzimy do fora po raz n-ty "+n);
@@ -169,14 +182,24 @@ public class Car extends Thread {
 		return this.properCosts;
 	}
 	
-	public void changeVector(Vector<Integer> koszty) {
+	public void changeVector(Vector<Integer> koszty) { //ustawiam koszty w kolejnosci od bazy do miasta glownego
 		int j =koszty.size() -2;
 		for(int i =0; i < koszty.size()-1; i++) {
 				properCosts.add(i, koszty.elementAt(j));
-				System.out.println(properCosts.elementAt(i) + " i= "+i);
 			j--;
 		}
 	}
 	
+	public void printStart(Package p) {
+		System.out.println("Pobrano paczke nr: " +p.getNr()+ " do"+graph.getPeaks().elementAt(p.getTarget()));
+	}
 	
+	public void printDelivery(Package p) {
+		System.out.println("Dostarczono paczke nr: " +p.getNr()+ " do"+graph.getPeaks().elementAt(p.getTarget()));
+	}
+	
+	public int getDriven() {
+		return driven;
+	}
 }
+

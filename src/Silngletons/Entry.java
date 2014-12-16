@@ -6,11 +6,11 @@ public class Entry {
 	private int charge;
 	
 	private Entry(int cars, int charge) {
-		cars = this.cars;
-		charge = this.charge;
+		this.cars = cars;
+		this.charge = charge;
 	}
 	
-	public synchronized Entry getInstance(int ca, int ch) {
+	public static synchronized Entry getInstance(int ca, int ch) {
 		if(enter == null) {
 			enter = new Entry(ca, ch);
 			return enter;

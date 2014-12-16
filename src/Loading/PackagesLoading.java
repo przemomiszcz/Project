@@ -8,7 +8,7 @@ import java.io.IOException;
 import Silngletons.Order;
 import Parts.Package;
 
-public class PackagesLoading implements Loading{
+public class PackagesLoading implements Loading{ //wczytywanie paczek do wektora
 	private FileReader fr;
 	private BufferedReader bfr;
 	private Order order;

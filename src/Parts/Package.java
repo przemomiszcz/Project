@@ -2,12 +2,12 @@ package Parts;
 
 
 public class Package {
-	private int nr;
-	private int base;
-	private int target;
-	private String name;
-	private int priority;
-	private boolean state;
+	private int nr;				//nr paczki
+	private int base;			// nr bazy
+	private int target;			//nr miasta-celu
+	private String name;		//nazwa paczki
+	private int priority;		
+	private boolean state;		//dostaeczona == true
 	
 	public Package(int nr, int base, int target, String name, int priority) {
 		this.nr = nr;

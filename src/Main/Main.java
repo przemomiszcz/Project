@@ -3,6 +3,7 @@ package Main;
 import Loading.CitiesLoading;
 import Loading.ConnectionsLoading;
 import Loading.PackagesLoading;
+import Silngletons.Entry;
 import Silngletons.Graph;
 import Silngletons.Order;
 import Scheduler.Scheduler;
@@ -15,7 +16,7 @@ public class Main {
 		//int carsAmount = Integer.parseInt(args[0]);
 		//int capacity = Integer.parseInt(args[1]);
 		
-		System.out.println("dupa");
+		Entry enter = Entry.getInstance(1, 1);
 		CitiesLoading cl = new CitiesLoading();
 		ConnectionsLoading ccl = new ConnectionsLoading();
 		PackagesLoading pl = new PackagesLoading();
@@ -26,10 +27,7 @@ public class Main {
 		
 		Graph graph =  Graph.getInstance();
 		Order order = Order.getInstance();
-		System.out.println("ilosc peakow: "+graph.countPeaks());
-		System.out.println("cele z 3 miasta: "+graph.countConcretTargets(3));
-		//System.out.println(graph);
-		//System.out.println(order);
+		//System.out.println("cele z 3 miasta: "+graph.countConcretTargets(1));
 		
 		/*for(int i =0; i < 5; i++) {
 			for(int j=0; j<=5; j++) {
@@ -42,9 +40,8 @@ public class Main {
 		Dijkstra dijkstra = new Dijkstra(graph.getPeaks(), order.getElem(0).getBase());
 		//System.out.println(graph.getPeaks());
 		dijkstra.start();
-		Scheduler scheduler = new Scheduler(5, 1, dijkstra.getParents(), graph, order.getOrder());
+		Scheduler scheduler = new Scheduler(1, 3, dijkstra.getParents(), graph, order.getOrder());
 		scheduler.start();
-		System.out.println("Skoñczona dupa");
 	}
 
 }
