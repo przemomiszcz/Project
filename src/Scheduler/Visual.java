@@ -1,58 +1,65 @@
 package Scheduler;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 
 import edu.uci.ics.jung.algorithms.layout.*;
 import edu.uci.ics.jung.visualization.*;
+import edu.uci.ics.jung.visualization.decorators.GradientEdgePaintTransformer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.graph.*;
-//import org.apache.commons.collections15.*;
-
 import Singletons.Graf;
 
 public class Visual extends JFrame{
 
-	
+	private VisualizationViewer vv;
 	private static final long serialVersionUID = 1L;
+	private GradientEdgePaintTransformer<Integer, String> grad;
 
 	public Visual (){
-	    super("Mój pierwszy graf");
+	    super("Samochod nr ");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    
 	    Graf gr = Graf.getInstance();
-	    Graph g = getGraph(gr);
-	    VisualizationViewer<Integer,String> vv = 
-	     new VisualizationViewer<Integer,String>(new CircleLayout(g),
-	     new Dimension (500, 500));
-	    vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-	    vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
-	    getContentPane().add(vv);
-	 
-	    pack();
-	    setVisible(true);
+	    Graph<Integer, String> g = getGraph(gr);
+	    vv=new VisualizationViewer<Integer,String>(new CircleLayout<Integer, String>(g),
+			    new Dimension (500, 500));
+	    grad = new GradientEdgePaintTransformer<Integer, String>(Color.BLUE, Color.BLUE, vv);
+	    showGraph(g);
 	  }
 	 
-	  public Graph getGraph(Graf gr) {
+	  public Graph<Integer, String> getGraph(Graf gr) {
 		int k = 0;
 	    Graph<Integer, String> g = new SparseMultigraph<Integer, String>();
 	    for(int i =0 ; i < gr.getPeaks().size(); i++) {
-	    	System.out.println("wchodzimy po raz i-ty" +i);
 	    	g.addVertex(i);
 	    	for(int j = 0; j < gr.getPeaks().elementAt(i).getEdges().size(); j++) {
-	    		System.out.println("wchodzimy po raz j-ty" +j);
-	    		g.addEdge("Edge " + k, gr.getPeaks().elementAt(i).getNr(), gr.getPeaks().elementAt(i).getEdges().elementAt(j).getTarget());
-	    		System.out.println("wpisalem");
+	    		g.addEdge("Edge "+gr.getPeaks().elementAt(i).getEdges().elementAt(j).getTime() + " - "+k, 
+	    				gr.getPeaks().elementAt(i).getNr(), gr.getPeaks().elementAt(i).getEdges().elementAt(j).getTarget());
 	    		k++;
 	    	}
 	    }
 	    
-	   /* g.addEdge("Edge-A", 1, 2);
-	    g.addEdge("Edg", 1, 4);
-	    g.addEdge("Edge-B", 2, 3);
-	    g.addEdge("Edge-C", 3, 1);*/
-	    
 	    return g;
+	  }
+	  
+	  public void updateGraph(Vector<Integer> passed, int nr) {
+		  Graph<Integer, String> g = new SparseMultigraph<Integer, String>();
+		  	showGraph(g);
+	  }
+	  
+	  @SuppressWarnings("unchecked")
+	public void showGraph(Graph<Integer, String> g) {
+		  vv = 
+				    new VisualizationViewer<Integer,String>(new CircleLayout<Integer, String>(g),
+				    new Dimension (500, 500));
+				    vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<Integer>());
+				    vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<String>());
+				    getContentPane().add(vv);
+				 
+				    pack();
+				    setVisible(true);
 	  }
 }

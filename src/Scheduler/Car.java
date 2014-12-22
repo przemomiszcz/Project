@@ -10,6 +10,7 @@ import Parts.Peak;
 
 
 public class Car extends Thread {
+	private Visual visual;
 	private int id;
 	private int capacity;
 	private Vector<Package> vector;
@@ -19,7 +20,7 @@ public class Car extends Thread {
 	private Vector<Integer> properCosts = new Vector<>();
 	private int driven;
 		
-	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graf graf) {
+	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graf graf, Visual visual) {
 		this.capacity = capacity;
 		this.id = id;
 		this.vector = vector;
@@ -27,6 +28,7 @@ public class Car extends Thread {
 		this.parents = parents;
 		this.graf = graf;
 		this.driven =0;
+		this.visual = visual;
 
 	}
 	
@@ -120,6 +122,7 @@ public class Car extends Thread {
 			}
 		}
 		Vector<Integer> v = countCost(nr, passed);
+		visual.updateGraph(passed, nr);
 		}
 		for(int i =0; i < properCosts.size(); i++) {
 			driven = driven + properCosts.elementAt(i);
@@ -131,6 +134,7 @@ public class Car extends Thread {
 				e.printStackTrace();
 			}
 		}
+		
 		//System.out.println("cost finalny= "+properCosts);
 		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 	}

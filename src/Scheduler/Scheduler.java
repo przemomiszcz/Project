@@ -27,9 +27,9 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 	}
 	
 	public void start() {
-		
+		Visual visual = new Visual();
 		for(int i =0; i < cars.length; i++) { // tworzenie odpowiedniej ilosci watkow
-			cars[i] = new Car(i, charge, vector, parents, graf);
+			cars[i] = new Car(i, charge, vector, parents, graf, visual);
 		}
 		for(int i =0; i < cars.length; i++) { //uruchamianie kazdego z nich
 			System.out.println("samochod nr : " +i);

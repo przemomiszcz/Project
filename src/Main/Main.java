@@ -37,7 +37,7 @@ public class Main {
 				}
 			}
 		}*/
-		Visual v = new Visual();
+		//Visual v = new Visual();
 		Dijkstra dijkstra = new Dijkstra(graf.getPeaks(), order.getElem(0).getBase());
 		//System.out.println(graph.getPeaks());
 		dijkstra.start();
