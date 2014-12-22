@@ -2,5 +2,23 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="var" path="M2_REPO"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/collections-generic-4.01.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/colt-1.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/concurrent-1.3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/j3d-core-1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-3d-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-3d-demos-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-algorithms-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-api-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-graph-impl-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-jai-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-jai-samples-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-samples-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/jung-visualization-2.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/vecmath-1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pszemek/Desktop/Nowy folder/wstx-asl-3.2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

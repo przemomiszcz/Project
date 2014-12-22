@@ -1,12 +1,10 @@
 
 package Scheduler;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Vector;
 
-import Silngletons.Graph;
-import Silngletons.Order;
+import Singletons.Graf;
+import Singletons.Order;
 import Parts.Package;
 import Parts.Peak;
 
@@ -17,17 +15,17 @@ public class Car extends Thread {
 	private Vector<Package> vector;
 	private int cost;
 	private int[] parents;
-	private Graph graph;
+	private Graf graf;
 	private Vector<Integer> properCosts = new Vector<>();
 	private int driven;
 		
-	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graph graph) {
+	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graf graf) {
 		this.capacity = capacity;
 		this.id = id;
 		this.vector = vector;
 		this.cost =0;
 		this.parents = parents;
-		this.graph = graph;
+		this.graf = graf;
 		this.driven =0;
 
 	}
@@ -46,6 +44,7 @@ public class Car extends Thread {
 		Vector<Integer> passed = new Vector<Integer>();				//vector poprzednikow
 		int a = 0;													// zmienna robocza szerokiego zastosowania 3
 		
+		synchronized(this) {
 		for(int i =0; i<tmpParents.length; i++) {
 			tmpParents[i] = 666;
 		}
@@ -83,7 +82,7 @@ public class Car extends Thread {
 		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 		vector.elementAt(indexMax).setState();
 		tmp = nr;
-		this.cost = graph.getPeaks().elementAt(nr).getConcretEdge(parents[nr]).getTime();
+		this.cost = graf.getPeaks().elementAt(nr).getConcretEdge(parents[nr]).getTime();
 		//System.out.println("load= "+load+ " capacity= "+capacity);
 		
 		if(load < this.capacity) { //szukamy czy jest jakas paczka w tym samym miescie
@@ -121,7 +120,7 @@ public class Car extends Thread {
 			}
 		}
 		Vector<Integer> v = countCost(nr, passed);
-		
+		}
 		for(int i =0; i < properCosts.size(); i++) {
 			driven = driven + properCosts.elementAt(i);
 			try {
@@ -143,15 +142,15 @@ public class Car extends Thread {
 		
 			for(int i =0; i<passed.size(); i++) { //obliczam koszt z miasta glownego do poprzednika
 				//System.out.println("wchodzimy do fora po raz i-ty "+i);
-				for(int k=0; k < graph.countPeaks(); k++) {
+				for(int k=0; k < graf.countPeaks(); k++) {
 					//System.out.println("wchodzimy do fora po raz k-ty "+k);
-					for(int l =0; l <= graph.countConcretTargets(nr)+1; l++) {
+					for(int l =0; l <= graf.countConcretTargets(nr)+1; l++) {
 						//System.out.println("wchodzimy do fora po raz l-ty "+l);
 						//System.out.println("graph.counssas= "+graph.countConcretTargets(nr));
-						if(graph.getPeaks().elementAt(k).getConcretEdge(l) != null && koszty.elementAt(0) == 0) {
-							if(nr == graph.getPeaks().elementAt(nr).getNr() && passed.elementAt(i) == graph.getPeaks().elementAt(k).getConcretEdge(l).getTarget()) {
+						if(graf.getPeaks().elementAt(k).getConcretEdge(l) != null && koszty.elementAt(0) == 0) {
+							if(nr == graf.getPeaks().elementAt(nr).getNr() && passed.elementAt(i) == graf.getPeaks().elementAt(k).getConcretEdge(l).getTarget()) {
 								//System.out.println("wchodzimy do ifa przy czym nr= "+nr+ " i= "+i+" k= "+k+" l= "+l+" graph.getPeaks().elementAt(k).getConcretEdge(l).getTarget()= "+graph.getPeaks().elementAt(k).getConcretEdge(l).getTarget());
-								koszty.add(0, graph.getPeaks().elementAt(nr).getConcretEdge(l).getTime());
+								koszty.add(0, graf.getPeaks().elementAt(nr).getConcretEdge(l).getTime());
 								//System.out.println("koszt obecny= "+koszty.elementAt(0));
 							}
 						} 
@@ -161,13 +160,13 @@ public class Car extends Thread {
 		
 		for(int m = 0; m < passed.size()-1; m++) { //obliczam koszty reszty poprzednikow
 			//System.out.println("wchodzimy do fora po raz m-ty "+m);
-			for(int n =0; n < graph.countPeaks(); n++) {
+			for(int n =0; n < graf.countPeaks(); n++) {
 				//System.out.println("wchodzimy do fora po raz n-ty "+n);
-				for(int o =0; o < graph.countConcretTargets(m); o++) {
+				for(int o =0; o < graf.countConcretTargets(m); o++) {
 					//System.out.println("wchodzimy do fora po raz o-ty "+o);
-					if(passed.elementAt(m) == graph.getPeaks().elementAt(n).getNr() && passed.elementAt(m+1) == graph.getPeaks().elementAt(n).getEdges().elementAt(o).getTarget()) {
+					if(passed.elementAt(m) == graf.getPeaks().elementAt(n).getNr() && passed.elementAt(m+1) == graf.getPeaks().elementAt(n).getEdges().elementAt(o).getTarget()) {
 						//System.out.println("wchodzimy do ifa przy czym m= "+m+ " n= "+n+" o= "+o);
-						koszty.add(m+1, graph.getPeaks().elementAt(passed.elementAt(m)).getEdges().elementAt(o).getTime()); 
+						koszty.add(m+1, graf.getPeaks().elementAt(passed.elementAt(m)).getEdges().elementAt(o).getTime()); 
 						//System.out.println("koszt obecny= "+koszt);
 					}	
 				}	
@@ -191,11 +190,11 @@ public class Car extends Thread {
 	}
 	
 	public void printStart(Package p) {
-		System.out.println("Pobrano paczke nr: " +p.getNr()+ " do"+graph.getPeaks().elementAt(p.getTarget()));
+		System.out.println("Pobrano paczke nr: " +p.getNr()+ " do"+graf.getPeaks().elementAt(p.getTarget()));
 	}
 	
 	public void printDelivery(Package p) {
-		System.out.println("Dostarczono paczke nr: " +p.getNr()+ " do"+graph.getPeaks().elementAt(p.getTarget()));
+		System.out.println("Dostarczono paczke nr: " +p.getNr()+ " do"+graf.getPeaks().elementAt(p.getTarget()));
 	}
 	
 	public int getDriven() {

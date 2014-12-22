@@ -1,4 +1,4 @@
-package Silngletons;
+package Singletons;
 
 public class Entry {
 	private static Entry enter = null;

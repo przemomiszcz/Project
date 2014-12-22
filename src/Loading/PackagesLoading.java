@@ -5,7 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-import Silngletons.Order;
+
+import Singletons.Order;
 import Parts.Package;
 
 public class PackagesLoading implements Loading{ //wczytywanie paczek do wektora

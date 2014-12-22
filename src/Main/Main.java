@@ -3,11 +3,12 @@ package Main;
 import Loading.CitiesLoading;
 import Loading.ConnectionsLoading;
 import Loading.PackagesLoading;
-import Silngletons.Entry;
-import Silngletons.Graph;
-import Silngletons.Order;
+import Singletons.Entry;
+import Singletons.Graf;
+import Singletons.Order;
 import Scheduler.Scheduler;
 import Scheduler.Car;
+import Scheduler.Visual;
 
 public class Main {
 
@@ -25,7 +26,7 @@ public class Main {
 		ccl.load();
 		pl.load();
 		
-		Graph graph =  Graph.getInstance();
+		Graf graf =  Graf.getInstance();
 		Order order = Order.getInstance();
 		//System.out.println("cele z 3 miasta: "+graph.countConcretTargets(1));
 		
@@ -36,11 +37,11 @@ public class Main {
 				}
 			}
 		}*/
-
-		Dijkstra dijkstra = new Dijkstra(graph.getPeaks(), order.getElem(0).getBase());
+		Visual v = new Visual();
+		Dijkstra dijkstra = new Dijkstra(graf.getPeaks(), order.getElem(0).getBase());
 		//System.out.println(graph.getPeaks());
 		dijkstra.start();
-		Scheduler scheduler = new Scheduler(1, 3, dijkstra.getParents(), graph, order.getOrder());
+		Scheduler scheduler = new Scheduler(3, 3, dijkstra.getParents(), graf, order.getOrder());
 		scheduler.start();
 	}
 

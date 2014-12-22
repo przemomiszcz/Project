@@ -3,17 +3,18 @@ package Loading;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import Silngletons.*;
+
+import Singletons.*;
 import Parts.Edge;
 
 public class ConnectionsLoading implements Loading{ //wczytywanie polaczen jako krawdzi grafu
 
 	private FileReader fr;
 	private BufferedReader bfr;
-	private Graph graph;
+	private Graf graf;
 	
 	public ConnectionsLoading() {
-		graph = Graph.getInstance();
+		graf = Graf.getInstance();
 	}
 	
 	@Override
@@ -37,8 +38,8 @@ public class ConnectionsLoading implements Loading{ //wczytywanie polaczen jako 
 		try {
 			while((s=bfr.readLine())!=null) {
 				line = s.split("  ");
-				graph.addEdge(Integer.parseInt(line[0]), new Edge(Integer.parseInt(line[1]), Integer.parseInt(line[2])));
-				graph.addEdge(Integer.parseInt(line[1]), new Edge(Integer.parseInt(line[0]), Integer.parseInt(line[2])));
+				graf.addEdge(Integer.parseInt(line[0]), new Edge(Integer.parseInt(line[1]), Integer.parseInt(line[2])));
+				graf.addEdge(Integer.parseInt(line[1]), new Edge(Integer.parseInt(line[0]), Integer.parseInt(line[2])));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

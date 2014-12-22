@@ -5,17 +5,17 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import Parts.Peak;
-import Silngletons.*;
+import Singletons.*;
 
 
 public class CitiesLoading implements Loading{ //wczytywanie miast jako wierzcholki grafu
 
 	private FileReader fr;
 	private BufferedReader bfr;
-	private Graph graph;
+	private Graf graf;
 	
 	public CitiesLoading() {
-		graph = Graph.getInstance();
+		graf = Graf.getInstance();
 	}
 	
 	@Override
@@ -39,7 +39,7 @@ public class CitiesLoading implements Loading{ //wczytywanie miast jako wierzcho
 		try {
 			while((s = bfr.readLine()) != null) {
 				line = s.split("  ");
-				graph.addPeak(Integer.parseInt(line[0]), new Peak(Integer.parseInt(line[0]), line[1]));
+				graf.addPeak(Integer.parseInt(line[0]), new Peak(Integer.parseInt(line[0]), line[1]));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,4 +1,4 @@
-package Silngletons;
+package Singletons;
 
 import java.util.Vector;
 import Parts.Package;

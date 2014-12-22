@@ -3,23 +3,23 @@ package Scheduler;
 
 import java.util.Vector;
 
-import Silngletons.Entry;
-import Silngletons.Graph;
 import Parts.Package;
-import Silngletons.Order;
+import Singletons.Entry;
+import Singletons.Graf;
+import Singletons.Order;
 
 public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 	private int[] parents;
-	private Graph graph;
+	private Graf graf;
 	private Car[] cars; //tablica watkow
 	private Vector<Package> vector; 
 	private int amount = 0;
 	private int charge = 0;
 	private int all;
 	
-	public Scheduler(int amount, int charge, int[] parents, Graph graph, Vector<Package> vector) {
+	public Scheduler(int amount, int charge, int[] parents, Graf graf, Vector<Package> vector) {
 		this.parents = parents;
-		this.graph = graph;
+		this.graf = graf;
 		cars = new Car[amount];
 		this.vector = vector;
 		this.charge = charge;
@@ -29,7 +29,7 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 	public void start() {
 		
 		for(int i =0; i < cars.length; i++) { // tworzenie odpowiedniej ilosci watkow
-			cars[i] = new Car(i, charge, vector, parents, graph);
+			cars[i] = new Car(i, charge, vector, parents, graf);
 		}
 		for(int i =0; i < cars.length; i++) { //uruchamianie kazdego z nich
 			System.out.println("samochod nr : " +i);

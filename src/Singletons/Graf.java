@@ -1,20 +1,20 @@
-package Silngletons;
+package Singletons;
 
 import java.util.Vector;
 import Parts.*;
 
 
-public class Graph {					//glowny graf zawierajacy miasta
-	private static Graph instance = null;
+public class Graf {					//glowny graf zawierajacy miasta
+	private static Graf instance = null;
 	private Vector<Peak> peaks;			//vector miast
 	
-	private Graph() {
+	private Graf() {
 		peaks = new Vector<>();
 	}
 	
-	public static synchronized Graph getInstance() {
+	public static synchronized Graf getInstance() {
 		if(instance == null ) {
-			instance = new Graph();
+			instance = new Graf();
 			return instance;
 		}
 		return instance;
