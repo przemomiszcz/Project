@@ -15,7 +15,6 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 	private Vector<Package> vector; 
 	private int amount = 0;
 	private int charge = 0;
-	private int all;
 	
 	public Scheduler(int amount, int charge, int[] parents, Graf graf, Vector<Package> vector) {
 		this.parents = parents;
@@ -23,11 +22,10 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 		cars = new Car[amount];
 		this.vector = vector;
 		this.charge = charge;
-		this.all = 0;
 	}
 	
 	public void start() {
-		Visual visual = new Visual();
+		Visual visual = new Visual(vector);
 		for(int i =0; i < cars.length; i++) { // tworzenie odpowiedniej ilosci watkow
 			cars[i] = new Car(i, charge, vector, parents, graf, visual);
 		}
@@ -42,7 +40,4 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 		return parents[i];
 	}
 	
-	public void allPlusOne() {
-		this.all++;
-	}
 }

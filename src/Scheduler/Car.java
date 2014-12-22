@@ -4,9 +4,7 @@ package Scheduler;
 import java.util.Vector;
 
 import Singletons.Graf;
-import Singletons.Order;
 import Parts.Package;
-import Parts.Peak;
 
 
 public class Car extends Thread {
@@ -45,12 +43,14 @@ public class Car extends Thread {
 		int j = 0; 													// robocza zmienna szerokiego zastosowania 2
 		Vector<Integer> passed = new Vector<Integer>();				//vector poprzednikow
 		int a = 0;													// zmienna robocza szerokiego zastosowania 3
+		int tmpDriven=0;											// zmienna przechowuje przejechana odleglosc podczas jednego "kursu"
 		
 		synchronized(this) {
 		for(int i =0; i<tmpParents.length; i++) {
 			tmpParents[i] = 666;
 		}
 		
+
 		
 		for(int i = 0; i < vector.size(); i++) { //szukam paczki o najwiekszym priorytecie
 			if(vector.elementAt(i).getState() == false) {
@@ -121,20 +121,39 @@ public class Car extends Thread {
 				}
 			}
 		}
+		System.out.println(passed);
 		Vector<Integer> v = countCost(nr, passed);
 		visual.updateGraph(passed, nr);
 		}
 		for(int i =0; i < properCosts.size(); i++) {
-			driven = driven + properCosts.elementAt(i);
+			tmpDriven = tmpDriven + properCosts.elementAt(i);
+				try {
+					Thread.sleep(properCosts.elementAt(i)*50);
+					//Thread.sleep(500);
+					//tutaj wypisanie dostarczenia
+					System.out.println("tmpdriven= "+tmpDriven);
+				} catch(InterruptedException e) {
+					e.printStackTrace();
+				}
+			
+			}
+		
+			tmp = 0;
+			for(int u = 0; u < properCosts.size(); u++) {
+				tmp = tmp + properCosts.elementAt(u);
+			
 			try {
-				Thread.sleep(properCosts.elementAt(i)*50);
-				//tutaj wypisanie dostarczenia
-				System.out.println("driven= "+driven);
+				//System.out.println("tmp= "+tmp);
+				Thread.sleep(tmp*50);
+				System.out.println("Samochod nr " + id+" wraca do miasta-bazy");
 			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}
+			
 		}
 		
+		
+		this.driven = driven + tmpDriven*2;
 		//System.out.println("cost finalny= "+properCosts);
 		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 	}
