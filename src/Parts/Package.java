@@ -48,6 +48,6 @@ public class Package {
 	
 	@Override
 	public String toString() {
-		return " number: " + nr + " base: " + base + " target: " + target + " name: " + name + " priority " +priority;
+		return " number: " + nr + " base: " + base + " target: " + target + " name: " + name + " priority " +priority + " state: "+state;
 	}
 }

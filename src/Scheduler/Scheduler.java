@@ -42,11 +42,11 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 		int delivered = 0;
 		while(true) {
 			for(int i =0; i < cars.length; i++) { 	//uruchamianie kazdego z nich
-				if(delivered <= vector.size()) {
+				if(delivered < vector.size()) {
 					System.out.println("samochod nr : " +i);
 					cars[i].run();
 					delivered = delivered + cars[i].getDelivered();
-					//System.out.println(delivered + "----- "+vector.size());
+					System.out.println(delivered + "----- "+vector.size());
 				} else {
 					return ;
 				}
