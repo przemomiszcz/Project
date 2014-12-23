@@ -1,9 +1,9 @@
 package Singletons;
 
-public class Entry {
+public class Entry {					//klasa zawiera dane wejsciowe
 	private static Entry enter = null;
-	private int cars;
-	private int charge;
+	private int cars;					//ilosc dostepnych samochodow
+	private int charge;					//pojemnosc kazdego samochodu
 	
 	private Entry(int cars, int charge) {
 		this.cars = cars;

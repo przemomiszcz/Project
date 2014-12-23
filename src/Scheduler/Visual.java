@@ -57,14 +57,11 @@ public class Visual extends JFrame{
 		  final Graph<Integer, String> g = getGraph();
 		  final int tmp = nr;
 		  final Vector<Integer> tmpVector = passed;
-		  //System.out.println("tmp= "+tmp+" vector= "+tmpVector);
 		  
 		  Transformer<String, Paint> edgePaint = new Transformer<String, Paint>() {
 			    public Paint transform(String str) {
-			    	//System.out.println("wchodzimy do konstruktora przy czym str= "+str);
 			    	Pair<Integer> x = g.getEndpoints(str);
 			        if(x.getFirst() == tmp && x.getSecond() == tmpVector.elementAt(0) || x.getFirst() == tmpVector.elementAt(0) && x.getSecond() == tmp) {
-			        	//System.out.println("haaaaaaaaaaaaalo "+x);
 			        	return Color.MAGENTA;
 			        } 
 			        for(int i =0; i<tmpVector.size()-1; i++) {
@@ -109,6 +106,5 @@ public class Visual extends JFrame{
 				 
 				    pack();
 				    setVisible(true);
-				    //System.out.println(g);
 	  }
 }

@@ -13,7 +13,7 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 	private Car[] cars; //tablica watkow
 	private Vector<Package> vector; 
 	private int charge = 0;
-	private Entry enter;
+	//private Entry enter;
 	
 	public Scheduler(Entry enter, int[] parents, Graf graf, Vector<Package> vector) {
 		this.parents = parents;
@@ -46,7 +46,6 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 					System.out.println("samochod nr : " +i);
 					cars[i].run();
 					delivered = delivered + cars[i].getDelivered();
-					System.out.println(delivered + "----- "+vector.size());
 				} else {
 					return ;
 				}

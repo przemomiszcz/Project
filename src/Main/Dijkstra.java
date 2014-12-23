@@ -44,10 +44,6 @@ public class Dijkstra {
 			//}
 		}
 		
-		//for(int i =0; i < Q.size(); i++) {
-		//	System.out.println(parents[i]);
-		//	System.out.println(costs[i]);
-		//}
 	}
 	
 	

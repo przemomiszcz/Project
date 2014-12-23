@@ -3,7 +3,7 @@ package Singletons;
 import java.util.Vector;
 import Parts.Package;
 
-public class Order { //singleton zawierajacy paczki
+public class Order { 						//singleton zawierajacy paczki
 	private static Order instance = null;
 	private Vector<Package> orders = null; //vector paczek
 	

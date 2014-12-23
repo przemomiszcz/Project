@@ -27,13 +27,7 @@ public class Main {
 		Graf graf =  Graf.getInstance();
 		Order order = Order.getInstance();
 				
-		/*for(int i =0; i < 5; i++) {
-			for(int j=0; j<=5; j++) {
-				if(graph.getPeaks().elementAt(i).getConcretEdge(j) != null) {
-					System.out.println("z miasta i= "+i+" edge ma nr= "+graph.getPeaks().elementAt(i).getConcretEdge(j));
-				}
-			}
-		}*/
+		
 		Dijkstra dijkstra = new Dijkstra(graf.getPeaks(), order.getElem(0).getBase());
 		dijkstra.start();
 		Scheduler scheduler = new Scheduler(enter, dijkstra.getParents(), graf, order.getOrder());
