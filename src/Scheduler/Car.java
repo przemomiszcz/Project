@@ -12,22 +12,23 @@ public class Car extends Thread {
 	private int id;
 	private int capacity;
 	private Vector<Package> vector;
-	private int cost;
+	//private int cost;
 	private int[] parents;
 	private Graf graf;
 	private Vector<Integer> properCosts = new Vector<>();
 	private int driven;
+	private int delivered;
 		
 	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graf graf, Visual visual) {
 		this.capacity = capacity;
 		this.id = id;
 		this.vector = vector;
-		this.cost =0;
+		//this.cost =0;
 		this.parents = parents;
 		this.graf = graf;
 		this.driven =0;
 		this.visual = visual;
-
+		this.delivered  =0;
 	}
 	
 	@Override
@@ -84,7 +85,7 @@ public class Car extends Thread {
 		//System.out.println("nr= " +nr + "  load = " + load + "  maxPr= " +maxPr+ " state= " + vector.elementAt(3).getState()+" cost= " +cost );
 		vector.elementAt(indexMax).setState();
 		tmp = nr;
-		this.cost = graf.getPeaks().elementAt(nr).getConcretEdge(parents[nr]).getTime();
+		//this.cost = graf.getPeaks().elementAt(nr).getConcretEdge(parents[nr]).getTime();
 		//System.out.println("load= "+load+ " capacity= "+capacity);
 		
 		if(load < this.capacity) { //szukamy czy jest jakas paczka w tym samym miescie
@@ -100,7 +101,7 @@ public class Car extends Thread {
 					    		vector.elementAt(i).setState();
 					    		printStart(vector.elementAt(i));
 					    		load++;
-					    		////////////////////////////////////////////////this.cost = cost + graph.getPeaks().elementAt(i).getConcretEdge(parents[target]).getTime();
+					    		
 						}
 				}
 			}
@@ -121,17 +122,17 @@ public class Car extends Thread {
 				}
 			}
 		}
-		System.out.println(passed);
-		Vector<Integer> v = countCost(nr, passed);
+		//System.out.println(passed);
+		countCost(nr, passed);
 		visual.updateGraph(passed, nr);
+		delivered = delivered + load;
 		}
 		for(int i =0; i < properCosts.size(); i++) {
 			tmpDriven = tmpDriven + properCosts.elementAt(i);
 				try {
 					Thread.sleep(properCosts.elementAt(i)*50);
-					//Thread.sleep(500);
 					//tutaj wypisanie dostarczenia
-					System.out.println("tmpdriven= "+tmpDriven);
+					//System.out.println("tmpdriven= "+tmpDriven);
 				} catch(InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -222,6 +223,10 @@ public class Car extends Thread {
 	
 	public int getDriven() {
 		return driven;
+	}
+	
+	public int getDelivered() {
+		return delivered;
 	}
 }
 

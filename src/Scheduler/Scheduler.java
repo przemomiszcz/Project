@@ -4,9 +4,7 @@ package Scheduler;
 import java.util.Vector;
 
 import Parts.Package;
-import Singletons.Entry;
 import Singletons.Graf;
-import Singletons.Order;
 
 public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 	private int[] parents;
@@ -26,14 +24,20 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 	
 	public void start() {
 		Visual visual = new Visual(vector);
-		for(int i =0; i < cars.length; i++) { // tworzenie odpowiedniej ilosci watkow
+		int delivered =0;
+		
+		for(int i =0; i < cars.length; i++) { 		// tworzenie odpowiedniej ilosci watkow
 			cars[i] = new Car(i, charge, vector, parents, graf, visual);
 		}
-		for(int i =0; i < cars.length; i++) { //uruchamianie kazdego z nich
-			System.out.println("samochod nr : " +i);
-			cars[i].run();
+		while(delivered < vector.size()) { 			//sprawdzam czy ilosc paczek dostarczonych jest mniejsza od poczatkowej ich ilosci
+			for(int i =0; i < cars.length; i++) { 	//uruchamianie kazdego z nich
+				System.out.println("samochod nr : " +i);
+				cars[i].run();
+				delivered = delivered + cars[i].getDelivered();
+				//System.out.println(delivered + "----- "+vector.size());
+			}
 		}
-		
+		System.out.println("-------------KONIEC---------------");
 	}
 	
 	public int getParent(int i) {
