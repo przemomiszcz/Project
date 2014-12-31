@@ -26,9 +26,10 @@ public class Visual extends JFrame{
 	private VisualizationViewer<Integer, String> vv;
 	private static final long serialVersionUID = 1L;
 	private Vector<Package> vec;
+	//private int id;
 	
-	public Visual (Vector<Package> vector){
-	    super("Samochod nr ");
+	public Visual (Vector<Package> vector, int id){
+	    super("Samochod nr "+id);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    gr = Graf.getInstance();
 	    Graph<Integer, String> g = getGraph();
@@ -40,7 +41,7 @@ public class Visual extends JFrame{
 	 
 	  public Graph<Integer, String> getGraph() {
 		int k = 0;
-	    Graph<Integer, String> g = new SparseMultigraph<Integer, String>();
+	    Graph<Integer, String> g = new DirectedSparseMultigraph<Integer, String>();
 	    for(int i =0 ; i < gr.getPeaks().size(); i++) {
 	    	g.addVertex(i);
 	    	for(int j = 0; j < gr.getPeaks().elementAt(i).getEdges().size(); j++) {
@@ -49,7 +50,6 @@ public class Visual extends JFrame{
 	    		k++;
 	    	}
 	    }
-	    
 	    return g;
 	  }
 	  

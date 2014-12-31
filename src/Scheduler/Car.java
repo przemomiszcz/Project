@@ -8,7 +8,6 @@ import Parts.Package;
 
 
 public class Car extends Thread {
-	private Visual visual;
 	private int id;
 	private int capacity;
 	private Vector<Package> vector;
@@ -18,14 +17,13 @@ public class Car extends Thread {
 	private int driven;
 	private int delivered;
 		
-	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graf graf, Visual visual) {
+	public Car(int id, int capacity, Vector<Package> vector, int[] parents, Graf graf) {
 		this.capacity = capacity;
 		this.id = id;
 		this.vector = vector;
 		this.parents = parents;
 		this.graf = graf;
 		this.driven =0;
-		this.visual = visual;
 		this.delivered  =0;
 	}
 	
@@ -41,7 +39,7 @@ public class Car extends Thread {
 		int j = 0; 													// robocza zmienna szerokiego zastosowania 2
 		Vector<Integer> passed = new Vector<Integer>();				//vector poprzednikow
 		int a = 0;													// zmienna robocza szerokiego zastosowania 3
-		int tmpDriven=0;											// zmienna przechowuje przejechana odleglosc podczas jednego "kursu"
+		int thisTimeDriven=0;										// zmienna przechowuje przejechana odleglosc podczas jednego "kursu"
 		Vector<Integer> inProgress = new Vector<>();				// vextor przechowuje cele dostarczanych w jednej turze paczek
 		Vector<Integer> orderedPassed = new Vector<>();				// vector przechowuje mijane miasta (w kolejnosci mijania)
  		Vector<Package> thisCourse = new Vector<>();				// vector przechowuje paczki pobrane w tej turze
@@ -57,6 +55,8 @@ public class Car extends Thread {
 		
 
 		//synchronized(this) {														// poczatek bloku synchronizowanego
+		Visual visual = new Visual(vector, id);
+		
 		for(int i = 0; i < vector.size(); i++) { 									//szukam paczki o najwiekszym priorytecie
 			if(vector.elementAt(i).getState() == false) {
 				if(vector.elementAt(i).getPriority() > maxPr) {
@@ -79,6 +79,7 @@ public class Car extends Thread {
 			j++;
 		}
 		
+		
 		while(a < tmpParents.length-1) { 											//tworze uporzadkowany vector poprzednikow
 			if(tmpParents[a] != -1 && tmpParents[a] != 666) {
 			passed.add(tmp, tmpParents[a]);
@@ -86,7 +87,6 @@ public class Car extends Thread {
 			}
 			a++;
 		}
-		
 		
 		vector.elementAt(indexMax).setState();										// ustawiam status paczki na "dostarczona"
 		
@@ -123,27 +123,31 @@ public class Car extends Thread {
 		countCost(nr, passed);
 		visual.updateGraph(passed, nr);
 		delivered = delivered + load;
-		tmpDriven = driven;
+		int  tmpDriven = driven;
 		//}																			//koniec bloku synchronizowanego
 		orderedPassed = orderingPassed(nr, passed);
 		
-		int x = 1;
+		
 		for(int i =0; i < properCosts.size(); i++) {
-			tmpDriven = tmpDriven + properCosts.elementAt(i);
+			thisTimeDriven = thisTimeDriven + properCosts.elementAt(i);
 				try {
-					Thread.sleep(properCosts.elementAt(i)*50);
-					for(int y =0; y <= x; y++) {
+					Thread.sleep(properCosts.elementAt(i));
+					for(int y =0; y <= orderedPassed.size(); y++) {
 						for(int t =0; t < inProgress.size(); t++) {
 								if(inProgress.elementAt(t) == orderedPassed.elementAt(y)) {
 									for(int n =0; n < thisCourse.size(); n++) {
 										if(thisCourse.elementAt(n).getTarget() == orderedPassed.elementAt(y)) {
+											for(int m = 0; m < y; m++) {
+												tmpDriven = tmpDriven + properCosts.elementAt(m);
+											}
 											System.out.println(tmpDriven+" dostarczono paczke nr: "+thisCourse.elementAt(n).getNr()+" do"+graf.getPeaks().elementAt(thisCourse.elementAt(n).getTarget()));
 											inProgress.removeElementAt(t);
+											tmpDriven =0;
 										}
 									}
 								}
 							}
-					} x++;
+					} 
 				} catch(InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -159,17 +163,14 @@ public class Car extends Thread {
 		}
 		
 			try {
-				System.out.println("Samochod nr " + id+" wraca do miasta-bazy");
-				Thread.sleep(toSleep*50);
+				System.out.println("Samochod nr " + id+" wraca do bazy");
+				Thread.sleep(toSleep);
 			} catch(InterruptedException e) {
 				e.printStackTrace();
 			}
 			
 	
-		
-		
-		this.driven = driven + tmpDriven*2;
-		
+		this.driven = driven + thisTimeDriven*2;
 		
 	}
 	
@@ -177,19 +178,18 @@ public class Car extends Thread {
 		Vector<Integer> koszty = new Vector<>();
 		koszty.add(0);
 		
-		
-			for(int i =0; i<passed.size(); i++) { 									//obliczam koszt z miasta glownego do poprzednika
-				for(int k=0; k < graf.countPeaks(); k++) {
-					for(int l =0; l <= graf.countConcretTargets(nr)+1; l++) {
+										
+				for(int k=0; k < graf.countPeaks(); k++) {							//obliczam koszt z miasta glownego do poprzednika
+					for(int l =0; l <= graf.countConcretTargets(nr)+2; l++) {
 						if(graf.getPeaks().elementAt(k).getConcretEdge(l) != null && koszty.elementAt(0) == 0) {
-							if(nr == graf.getPeaks().elementAt(nr).getNr() && passed.elementAt(i) == graf.getPeaks().elementAt(k).getConcretEdge(l).getTarget()) {
-								koszty.add(0, graf.getPeaks().elementAt(nr).getConcretEdge(l).getTime());
+							if(nr == k && passed.elementAt(0) == l) {
+								koszty.add(0, graf.getPeaks().elementAt(k).getConcretEdge(l).getTime());
 							}
 						} 
 					}
-				}
+				//}
 			}	
-		
+			
 		for(int m = 0; m < passed.size()-1; m++) {									 	//obliczam koszty reszty poprzednikow
 			for(int n =0; n < graf.countPeaks(); n++) {
 				for(int o =0; o < graf.countConcretTargets(m); o++) {
@@ -223,7 +223,7 @@ public class Car extends Thread {
 		int j =passed.size()-1;
 		while(j >= 0) {
 			for(int i=0; i<= passed.size()-1;i++) {
-				if(!noName.contains(passed.elementAt(i))) {
+				if(!(noName.contains(passed.elementAt(j)))) {
 					noName.add(passed.elementAt(j));
 				}
 			}

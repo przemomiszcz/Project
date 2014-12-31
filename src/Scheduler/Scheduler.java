@@ -24,19 +24,15 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 	}
 	
 	public void start() {
-		Visual visual = new Visual(vector);
 		
 		for(int i =0; i < cars.length; i++) { 		// tworzenie odpowiedniej ilosci watkow
-			cars[i] = new Car(i, charge, vector, parents, graf, visual);
+			cars[i] = new Car(i, charge, vector, parents, graf);
 		}
 		
 		startScheduling();
 		System.out.println("-------------KONIEC---------------");
 	}
 	
-	public int getParent(int i) {
-		return parents[i];
-	}
 	
 	public void startScheduling() {
 		int delivered = 0;
@@ -51,5 +47,9 @@ public class Scheduler { //odpowiada za uruchamianie watkow-samochodow
 				}
 			}	
 		}
+	}
+	
+	public int getParent(int i) {
+		return parents[i];
 	}
 }
