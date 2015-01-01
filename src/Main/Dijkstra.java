@@ -44,8 +44,9 @@ public class Dijkstra {
 		
 		//System.out.println(Q);
 		//System.out.println(S);	
-		
-		while( !(Q.isEmpty())) {	
+		//int d =0;
+		while( !(Q.isEmpty())) {
+			//System.out.println("a");
 			/*for(int i =0; i < costs.length; i++) {
 				System.out.println(costs[i]);
 				System.out.println(parents[i]);
@@ -55,17 +56,29 @@ public class Dijkstra {
 			tmp = searchMin(costs);
 			//System.out.println("tmp= "+tmp);
 			
-			//Q.remove(tmp);
+			//System.out.println("selement at: "+S.elementAt(tmp));
 			searchNeighbours(S.elementAt(tmp));
 			//System.out.println("NOWE tmp= "+tmp);
+			/*for(int i =0; i < costs.length; i++) {
+				System.out.println("do miasta: "+i);
+				System.out.println(parents[i]);
+				System.out.println("-------");
+				System.out.println(costs[i]);
+			}*/
 			dupa.add(tmp);
+			//System.out.println("dupa: "+dupa);
 			for(int i=0; i< Q.size(); i++) {
+				//System.out.println("ddd");
 				if(Q.elementAt(i).getNr() == tmp){
+					//System.out.println("i= "+i+" q.size= "+Q.size());
 					Q.remove(i);
+					//System.out.println("q.zie= "+Q.size());
+					
 				}
 			}
 			//System.out.println("Q= "+Q);
 			//System.out.println("usunelem");
+			//d++;
 		}
 		/*for(int i =0; i < costs.length; i++) {
 			System.out.println("do miasta: "+i);
@@ -79,6 +92,7 @@ public class Dijkstra {
 	
 	
 	public int searchMin(int[] costs) {
+		//System.out.println("b");
 		int min=660;
 		int where = 0;
 			for(int i = 0; i < costs.length; i++) {
@@ -96,6 +110,8 @@ public class Dijkstra {
 	}
 	
 	public void searchNeighbours(Peak p) {
+		//System.out.println(p);
+		//System.out.println(Q);
 		for(int i =0; i < p.getLength(); i++) {
 			//System.out.println("NEIGHBOURS: i= "+i);
 			for(int j = 0; j<Q.size(); j++) {
@@ -103,10 +119,11 @@ public class Dijkstra {
 				for(int k =0; k <Q.get(j).getLength(); k++) {
 					if(p.getEdges().elementAt(i).getTarget() == Q.get(j).getNr()) {
 						//System.out.println("p.getEdges().elementAt(i).getTarget()= "+p.getEdges().elementAt(i).getTarget()+ " Q.get(j).getNr()= "+Q.get(j).getNr());
-						if(costs[i] > costs[p.getNr()]+p.getConcretEdge(Q.elementAt(j).getNr()).getTime()) {
+						if(costs[p.getEdge(i).getTarget()] > costs[p.getNr()]+p.getConcretEdge(Q.elementAt(j).getNr()).getTime()) {
+							//System.out.println("target= "+p.getEdge(i).getTarget());
 							//System.out.println("if: i= "+ i+  " time= "+p.getConcretEdge(Q.elementAt(j).getNr()).getTime());
-							costs[j] = costs[p.getNr()]+p.getConcretEdge(Q.elementAt(j).getNr()).getTime();
-							parents[j] = p.getNr();
+							costs[p.getEdge(i).getTarget()] = costs[p.getNr()]+p.getConcretEdge(Q.elementAt(j).getNr()).getTime();
+							parents[p.getEdge(i).getTarget()] = p.getNr();
 						}
 					}
 				}

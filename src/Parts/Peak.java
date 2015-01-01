@@ -29,7 +29,7 @@ public class Peak {
 	@Override
 	public String toString() {
 		return  " nazwa miasta: " + name;
-		//+ edges"nr miasta :" + nr +;
+		//+ edges+"nr miasta :" + nr ;
 	}
 	
 	public Edge getEdge(int index) {

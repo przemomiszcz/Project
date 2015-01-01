@@ -127,7 +127,7 @@ public class Car extends Thread {
 		//}																			//koniec bloku synchronizowanego
 		orderedPassed = orderingPassed(nr, passed);
 		
-		
+	//	System.out.println(properCosts);
 		for(int i =0; i < properCosts.size(); i++) {
 			thisTimeDriven = thisTimeDriven + properCosts.elementAt(i);
 				try {
@@ -138,6 +138,7 @@ public class Car extends Thread {
 									for(int n =0; n < thisCourse.size(); n++) {
 										if(thisCourse.elementAt(n).getTarget() == orderedPassed.elementAt(y)) {
 											for(int m = 0; m < y; m++) {
+			//									System.out.println("i= "+i+" y= " + y+" t= "+t+" n= "+n+ " m= "+m);
 												tmpDriven = tmpDriven + properCosts.elementAt(m);
 											}
 											System.out.println(tmpDriven+" dostarczono paczke nr: "+thisCourse.elementAt(n).getNr()+" do"+graf.getPeaks().elementAt(thisCourse.elementAt(n).getTarget()));
@@ -180,7 +181,7 @@ public class Car extends Thread {
 		
 										
 				for(int k=0; k < graf.countPeaks(); k++) {							//obliczam koszt z miasta glownego do poprzednika
-					for(int l =0; l <= graf.countConcretTargets(nr)+2; l++) {
+					for(int l =0; l <= graf.countConcretTargets(nr)+10; l++) {
 						if(graf.getPeaks().elementAt(k).getConcretEdge(l) != null && koszty.elementAt(0) == 0) {
 							if(nr == k && passed.elementAt(0) == l) {
 								koszty.add(0, graf.getPeaks().elementAt(k).getConcretEdge(l).getTime());
@@ -199,6 +200,7 @@ public class Car extends Thread {
 				}	
 			}
 		}
+		//System.out.println(koszty);
 		changeVector(koszty);
 		return koszty;
 		

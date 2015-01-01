@@ -3,3 +3,5 @@
 2  Olsztyn
 3  Suwalki
 4  Poznan
+5  K³opoczyn
+6  Jasieñ

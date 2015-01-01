@@ -4,3 +4,8 @@
 004  3  1  Pude³ka dla IKEA  10
 005  3  2  Wibrator dla Lessi  80
 006  3  4  Dmuchana lala dla maæka  50
+007  3  5  Telefon dla pszemka  30
+008  3  5  klapki kubota  90
+009  3  1  xperia z1 wraca z gwarancji  45
+010  3  0  posciel z pralni  15
+011  3  6  dwa opakowania malin  100
