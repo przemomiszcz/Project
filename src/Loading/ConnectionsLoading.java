@@ -39,7 +39,7 @@ public class ConnectionsLoading implements Loading{ //wczytywanie polaczen jako 
 			while((s=bfr.readLine())!=null) {
 				line = s.split("  ");
 				graf.addEdge(Integer.parseInt(line[0]), new Edge(Integer.parseInt(line[1]), Integer.parseInt(line[2])));
-				//graf.addEdge(Integer.parseInt(line[1]), new Edge(Integer.parseInt(line[0]), Integer.parseInt(line[2])));
+				graf.addEdge(Integer.parseInt(line[1]), new Edge(Integer.parseInt(line[0]), Integer.parseInt(line[2])));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
