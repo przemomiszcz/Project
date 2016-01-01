@@ -30,6 +30,7 @@ public class Main {
 		dijkstra.start();
 		Scheduler scheduler = new Scheduler(enter, dijkstra.getParents(), graf, order.getOrder());
 		scheduler.start();
+		//dodalem komentasz
 	}
 
 }
